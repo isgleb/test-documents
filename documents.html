@@ -6,13 +6,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <h2>Your seat reservations</h2>
     <ul data-bind="foreach: seats">
-        <li data-bind="text: name" draggable="true" ondragstart="drag(event)"></li>
+        <li draggable="true" ondragstart="drag(event)">
+            <div data-bind="text: name"></div>
+            <ul data-bind="foreach: mealName">
+                <li>
+                    <span data-bind="text: name"></span>
+                    <span data-bind="text: required ? requiredStr : ''"></span>
+                </li>
+            </ul>
+        </li>
     </ul>
 </body>
 
 <script type='text/javascript'>
+
+    const requiredStr = "Обязательный"
+
     function drag(ev) {
         console.log(ev)
         ev.dataTransfer.setData("text", ev.target.id);
@@ -41,8 +51,8 @@
     function ReservationsViewModel() {
         // Editable data
         this.seats = ko.observableArray([
-            { name: "steve", mealName: "Standard (sandwich)", price: 0 },
-            { name: "Paul", mealName: "Standard (sandwich)", price: 0 }
+            { name: "steve", mealName: [{name:"fsgs", required: true}, {name:"fsgs", required: true}] },
+            { name: "Paul", mealName: [{name:"fsgs", required: true}, {name:"fsgs", required: true}] }
         ]);
     }
 
