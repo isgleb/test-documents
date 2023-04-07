@@ -97,6 +97,7 @@
             event: {
             dragstart: $parent.handleDragStart,
             dragend: $parent.handleDragEnd,
+            dragover: $parent.handleDragOver
            }"
         >
             <span class="document-content">
@@ -146,9 +147,9 @@
         ]);
 
         this.documents = ko.observableArray([
-            {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
-            {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
-            {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
+            {name:"1", required: true, comment: "Для всех", draggable: ko.observable(false)},
+            {name:"2", required: true, comment: "Для всех", draggable: ko.observable(false)},
+            {name:"3", required: true, comment: "Для всех", draggable: ko.observable(false)},
         ])
 
         this.allow = function (data,event) {
@@ -172,6 +173,9 @@
             console.log("end")
         }
 
+        this.handleDragOver = function (data, event) {
+            console.log(data.name)
+        }
 
 
     }
