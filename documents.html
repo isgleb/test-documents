@@ -35,12 +35,13 @@
 </div>
 </div>
 
-    <ul data-bind="foreach: seats">
-        <li draggable="true" ondragstart="drag(event)">
+    <ul data-bind="foreach: categories">
+        <li draggable="true">
             <div class="category row">
                 <div class="category-content">
                     <span data-bind="text: name" ></span>
                     <span data-bind="text: comment" ></span>
+                    <span data-bind="click: $parent.openList">open</span>
                 </div>
                 <div class="category-content">
                     <span>edit</span>
@@ -48,21 +49,40 @@
                     <span>drag</span>
                 </div>
             </div>
-            <ul data-bind="foreach: mealName" class="document-ul">
-                <li class="document row">
+            <div data-bind="if: isOpen">
+                <ul data-bind="foreach: documents"  class="document-ul">
+                    <li class="document row">
                     <span class="document-content">
                         <span data-bind="text: name"></span>
                         <span data-bind="text: required ? requiredStr : ''"></span>
                         <span data-bind="text: comment"></span>
                     </span>
-                    <span class="document-content">
+                        <span class="document-content">
                         <span>edit</span>
                         <span>delete</span>
                         <span>drag</span>
                     </span>
 
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+    </ul>
+
+    <ul data-bind="foreach: documents" class="document-ul">
+        <li class="document row" data-bind="attr: { draggable: true}" >
+            <span class="document-content">
+                <span data-bind="text: name"></span>
+                <span data-bind="text: required ? requiredStr : ''"></span>
+                <span data-bind="text: comment"></span>
+            </span>
+            <span class="document-content">
+                <span data-bind="text: draggable"></span>
+                <span>edit</span>
+                <span>delete</span>
+                <span class="control-button">drag</span>
+            </span>
         </li>
     </ul>
 </body>
@@ -83,26 +103,52 @@
         console.log(data)
     }
 
-    // class SeatReservation{
-    //     name
-    //     meal
-    //     constructor(name, meal) {
-    //         this.name = name;
-    //         this.meal = ko.observable(meal);
-    //     }
-    // }
-
     const obj = {category: "", requirements: []}
+
+    function dragStart() {
+        console.log("dragStart")
+    }
+
+
 
 
     // Overall viewmodel for this screen, along with initial state
     function ReservationsViewModel() {
         // Editable data
-        this.seats = ko.observableArray([
-            { name: "Обязательные для всех", mealName: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" },
-            { name: "Обязательные для трудоустройства", mealName: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" },
-            { name: "Специальные", mealName: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" }
+        this.categories = ko.observableArray([
+            { name: "Обязательные для всех", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех", isOpen: ko.observable(true)},
+            { name: "Обязательные для трудоустройства", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)},
+            { name: "Специальные", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)}
         ]);
+
+        this.documents = ko.observableArray([
+            {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
+            {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
+        ])
+
+        this.drag = function(place) {
+            // self.places.remove(place)
+            console.log(place)
+            place.draggable(true)
+
+            // place.dragstart()
+
+            // place.draggable(!place.draggable)
+            console.log(place)
+            console.log("i am dragging")
+        }
+
+        this.dragStop = function(place) {
+            console.log(place)
+            // place.draggable(false)
+        }
+
+        this.openList = function (parent){
+            const isOpenNow = parent.isOpen()
+            parent.isOpen(!isOpenNow)
+        }
+
+
     }
 
     ko.applyBindings(new ReservationsViewModel());
@@ -139,5 +185,22 @@
         width: 8px;
         height: 15px;
     }
+
+    .control-button {
+        cursor: pointer;
+    }
 </style>
 </html>
+
+
+
+<!--<a data-bind="attr: { href: url, title: details }">-->
+<!--    Report-->
+<!--</a>-->
+
+<!--<script type="text/javascript">-->
+<!--    var viewModel = {-->
+<!--        url: ko.observable("year-end.html"),-->
+<!--        details: ko.observable("Report including final year-end statistics")-->
+<!--    };-->
+<!--</script>-->
