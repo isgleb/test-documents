@@ -200,13 +200,14 @@
 
         this.handleDrop = function(data, event) {
             event.target.classList.remove('over');
-            console.log(data)
-            const index1 = self.documents().findIndex(a=> a===data)
-            const index = event.dataTransfer.getData('text/plain')
-            const obj = self.documents()[index]
 
-            self.documents.splice(index1, 0, self.documents.splice(index,1)[0]);
+            const fromIndex = self.documents().findIndex(a=> a===data)
+            const toIndex = event.dataTransfer.getData('text/plain')
+            // по разному вверх и вниз, и на шаблоне как раз так, как дает функция, надо изменить отображение рамки и все
 
+            self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
+
+            // self.documents.splice(fromIndex, 0, self.documents.splice(toIndex, 1)[0]);
             return false;
         }
 
