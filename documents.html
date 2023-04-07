@@ -205,13 +205,8 @@
             const index = event.dataTransfer.getData('text/plain')
             const obj = self.documents()[index]
 
-            console.log(obj)
-            self.documents.remove(obj)
-            self.documents.splice(index1, 0, obj)
+            self.documents.splice(index1, 0, self.documents.splice(index,1)[0]);
 
-            console.log(self.documents()[index])
-
-            // self.documents.remove(data)
             return false;
         }
 
