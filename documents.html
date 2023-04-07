@@ -32,10 +32,24 @@
         <path d="M3.53976 4.4727C3.28126 4.21408 3.28126 3.79476 3.53976 3.53614L6.87001 0.204315C7.12851 -0.0543084 7.54762 -0.054308 7.80612 0.204315C8.06462 0.462938 8.06462 0.88225 7.80612 1.14087L4.47587 4.4727C4.21737 4.73132 3.79826 4.73132 3.53976 4.4727Z" fill="#0066FF"/>
         <path d="M4.47058 4.4727C4.72908 4.21408 4.72908 3.79476 4.47058 3.53614L1.12999 0.193967C0.871489 -0.064656 0.452377 -0.0646556 0.193876 0.193968C-0.0646252 0.452591 -0.0646252 0.871902 0.193876 1.13053L3.53447 4.4727C3.79297 4.73132 4.21208 4.73132 4.47058 4.4727Z" fill="#0066FF"/>
     </svg>
-</div>
-</div>
 
-    <ul data-bind="foreach: categories">
+    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.7037 11L14.6569 15.2426M12.1813 7C12.1813 10.3137 9.67826 13 6.59064 13C3.50301 13 1 10.3137 1 7C1 3.68629 3.50301 1 6.59064 1C9.67826 1 12.1813 3.68629 12.1813 7Z" stroke="#8E9CBB" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+
+</div>
+</div>
+<div class="wrapper">
+    <h1>Документы</h1>
+
+    <div class="search">
+        <svg width="16" height="17" class="search-icon" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.7037 11L14.6569 15.2426M12.1813 7C12.1813 10.3137 9.67826 13 6.59064 13C3.50301 13 1 10.3137 1 7C1 3.68629 3.50301 1 6.59064 1C9.67826 1 12.1813 3.68629 12.1813 7Z" stroke="#8E9CBB" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input data-bind="value: searchValue" class="search-input">
+    </div>
+
+    <ul data-bind="foreach: categories" style="margin-top: 20px">
         <li>
             <div class="category row" draggable="true">
                 <div class="category-content">
@@ -85,6 +99,7 @@
             </span>
         </li>
     </ul>
+</div>
 </body>
 
 <script type='text/javascript'>
@@ -114,6 +129,10 @@
 
     // Overall viewmodel for this screen, along with initial state
     function ReservationsViewModel() {
+
+        this.searchValue = ko.observable("Bertington");
+
+
         // Editable data
         this.categories = ko.observableArray([
             { name: "Обязательные для всех", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех", isOpen: ko.observable(true)},
@@ -154,6 +173,37 @@
     ko.applyBindings(new ReservationsViewModel());
 </script>
 <style>
+    @import "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap";
+
+    .wrapper {
+        margin: 50px;
+    }
+
+    .search-icon{
+        width: 13.66px;
+        height: 14.24px;
+    }
+
+    .search-input {
+        border: none;
+        border-bottom: 1px solid #8E9CBB;
+        width: 564.07px;
+        height: 30px;
+    }
+    .search-input:focus-visible {
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #0066FF;
+    }
+
+    h1{
+        height: 30px;
+        font-family: Fira Sans;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 108%;
+    }
 
     .document-ul{
         padding-inline-start: 16px;
@@ -180,6 +230,10 @@
 
     li{
         list-style-type: none;
+    }
+
+    ul{
+        padding-inline-start: 0;
     }
 
     svg {
