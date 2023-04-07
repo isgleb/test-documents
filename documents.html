@@ -104,8 +104,8 @@
             }"
         >
             <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+<!--                 <span data-bind="text: $index"></span>-->
                 <span data-bind="text: name"></span>
-                <span data-bind="text: $index"></span>
                 <span data-bind="text: required ? requiredStr : ''"></span>
                 <span data-bind="text: comment"></span>
             </span>
@@ -149,7 +149,7 @@
         ]);
         const self = this
 
-        this.documents = ko.observableArray([
+        self.documents = ko.observableArray([
             {name:"1", required: true, comment: "Для всех", draggable: ko.observable(false)},
             {name:"2", required: true, comment: "Для всех", draggable: ko.observable(false)},
             {name:"3", required: true, comment: "Для всех", draggable: ko.observable(false)},
@@ -161,14 +161,11 @@
         }
 
         this.handleDragStart = function (data, event) {
-            // console.log(event.target.style)
 
             event.target.style.opacity = '0.4';
-            console.log(data)
+            const objectIndex = self.documents().findIndex(element => element === data)
 
-            // preventDefault and stopPropagation
-            // event.stopPropagation()
-            event.dataTransfer.setData('text/plain', data)
+            event.dataTransfer.setData('text/plain', objectIndex)
             return true;
         }
 
@@ -204,10 +201,17 @@
         this.handleDrop = function(data, event) {
             event.target.classList.remove('over');
             console.log(data)
-            const text = event.dataTransfer.getData('text/plain')
-            console.log(text)
+            const index1 = self.documents().findIndex(a=> a===data)
+            const index = event.dataTransfer.getData('text/plain')
+            const obj = self.documents()[index]
 
-            self.documents.remove(text)
+            console.log(obj)
+            self.documents.remove(obj)
+            self.documents.splice(index1, 0, obj)
+
+            console.log(self.documents()[index])
+
+            // self.documents.remove(data)
             return false;
         }
 
