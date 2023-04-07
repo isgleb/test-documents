@@ -90,8 +90,15 @@
         </li>
     </ul>
 
-    <ul data-bind="foreach: documents" class="document-ul">
-        <li class="document row" data-bind="attr: { draggable: true}" >
+    <ul data-bind="foreach: documents" class="document-ul" draggable="true">
+        <li class="document row"
+            data-bind="attr: {
+            draggable: draggable},
+            event: {
+            dragstart: $parent.handleDragStart,
+            dragend: $parent.handleDragEnd,
+           }"
+        >
             <span class="document-content">
                 <span data-bind="text: name"></span>
                 <span data-bind="text: required ? requiredStr : ''"></span>
@@ -101,7 +108,7 @@
                 <span data-bind="text: draggable"></span>
                 <span>edit</span>
                 <span>delete</span>
-                <span class="control-button">drag</span>
+                <span data-bind="event: {mousedown: $parent.allow}" class="control-button">drag</span>
             </span>
         </li>
     </ul>
@@ -111,25 +118,6 @@
 <script type='text/javascript'>
 
     const requiredStr = "Обязательный"
-
-    function drag(ev) {
-        console.log(ev)
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
-
-    function drop(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        // ev.target.appendChild(document.getElementById(data));
-        console.log(data)
-    }
-
-    const obj = {category: "", requirements: []}
-
-    function dragStart() {
-        console.log("dragStart")
-    }
-
 
 
 
@@ -146,8 +134,11 @@
             this.searchValue("")
         }
 
+        this.openList = function (parent){
+            const isOpenNow = parent.isOpen()
+            parent.isOpen(!isOpenNow)
+        }
 
-        // Editable data
         this.categories = ko.observableArray([
             { name: "Обязательные для всех", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех", isOpen: ko.observable(true)},
             { name: "Обязательные для трудоустройства", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)},
@@ -157,29 +148,31 @@
         this.documents = ko.observableArray([
             {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
             {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
+            {name:"fsgs", required: true, comment: "Для всех", draggable: ko.observable(false)},
         ])
 
-        this.drag = function(place) {
-            // self.places.remove(place)
-            console.log(place)
-            place.draggable(true)
-
-            // place.dragstart()
-
-            // place.draggable(!place.draggable)
-            console.log(place)
-            console.log("i am dragging")
+        this.allow = function (data,event) {
+            data.draggable(true)
+            return true;
         }
 
-        this.dragStop = function(place) {
-            console.log(place)
-            // place.draggable(false)
+        this.handleDragStart = function (data, event) {
+            console.log(event.target.style)
+
+            event.target.style.opacity = '0.4';
+            console.log("handleDragStart")
+            return true;
         }
 
-        this.openList = function (parent){
-            const isOpenNow = parent.isOpen()
-            parent.isOpen(!isOpenNow)
+        this.handleDragEnd = function (data, event) {
+            event.preventDefault();
+            console.log(event.target.style)
+            event.target.style.opacity = '1';
+            console.log("end")
         }
+
+
+
     }
 
     ko.applyBindings(new ReservationsViewModel());
@@ -249,6 +242,7 @@
         border: 1px solid #DFE4EF;
         display: flex;
         justify-content: space-between;
+        background-color: white;
     }
     .category-content{
         padding: 12px;
