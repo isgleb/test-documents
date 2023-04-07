@@ -92,20 +92,23 @@
 
     <ul data-bind="foreach: documents" class="document-ul">
         <li class="document row"
-            data-bind="attr: {
-            draggable: draggable},
+            data-bind="
+            attr: { draggable: draggable },
             event: {
-            dragstart: $parent.handleDragStart,
-            dragend: $parent.handleDragEnd,
-            dragover: $parent.handleDragOver
-           }"
+                dragstart: $parent.handleDragStart,
+                dragend: $parent.handleDragEnd,
+                dragover: $parent.handleDragOver,
+                dragenter: $parent.handleDragEnter,
+                dragleave: $parent.handleDragLeave,
+                drop: $parent.handleDrop
+            }"
         >
-            <span class="document-content">
+            <span class="document-content" draggable="false">
                 <span data-bind="text: name"></span>
                 <span data-bind="text: required ? requiredStr : ''"></span>
                 <span data-bind="text: comment"></span>
             </span>
-            <span class="document-content">
+            <span class="document-content" draggable="false">
                 <span data-bind="text: draggable"></span>
                 <span>edit</span>
                 <span>delete</span>
@@ -121,8 +124,6 @@
     const requiredStr = "Обязательный"
 
 
-
-    // Overall viewmodel for this screen, along with initial state
     function ReservationsViewModel() {
 
         this.searchValue = ko.observable("");
@@ -158,23 +159,42 @@
         }
 
         this.handleDragStart = function (data, event) {
-            console.log(event.target.style)
+            // console.log(event.target.style)
 
             event.target.style.opacity = '0.4';
-            console.log("handleDragStart")
+            // console.log("handleDragStart")
             return true;
         }
 
-        this.handleDragEnd = function (data, event) {
-            event.preventDefault();
-            console.log(event.target.style)
-            event.target.style.opacity = '1';
-            data.draggable(false)
-            console.log("end")
-        }
+        // this.handleDragEnd = function (data, event) {
+        //     event.preventDefault();
+        //     console.log(event.target.style)
+        //     event.target.style.opacity = '1';
+        //     data.draggable(false)
+        //     // console.log("end")
+        // }
 
         this.handleDragOver = function (data, event) {
-            console.log(data.name)
+            // console.log(data.name)
+        }
+        
+        this.handleDragEnter = function (data, event) {
+            event.target.classList.add('over');
+        }
+
+        this.handleDragLeave = function (data, event) {
+            event.target.classList.remove('over');
+        }
+
+        this.handleDragEnd = function (data, event) {
+            event.target.style.opacity = '1';
+            data.draggable(false)
+            event.toElement.classList.remove('over');
+        }
+
+        this.handleDrop = function(data, event) {
+            event.target.classList.remove('over');
+            return false;
         }
 
 
@@ -249,6 +269,11 @@
         justify-content: space-between;
         background-color: white;
     }
+
+    .over{
+        border-top: 2px solid red;
+    }
+
     .category-content{
         padding: 12px;
     }
