@@ -103,15 +103,13 @@
                 drop: $parent.handleDrop
             }"
         >
-            <span class="document-content" >
-<!--                  data-bind="event: { dragover: $parent.stopChildPropagation }">-->
+            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
                 <span data-bind="text: name"></span>
+                <span data-bind="text: $index"></span>
                 <span data-bind="text: required ? requiredStr : ''"></span>
                 <span data-bind="text: comment"></span>
             </span>
-            <span class="document-content" >
-<!--                  data-bind="event: { dragover: $parent.stopChildPropagation }"-->
-<!--            >-->
+            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
                 <span data-bind="text: draggable"></span>
                 <span>edit</span>
                 <span>delete</span>
@@ -149,6 +147,7 @@
             { name: "Обязательные для трудоустройства", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)},
             { name: "Специальные", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)}
         ]);
+        const self = this
 
         this.documents = ko.observableArray([
             {name:"1", required: true, comment: "Для всех", draggable: ko.observable(false)},
@@ -156,7 +155,7 @@
             {name:"3", required: true, comment: "Для всех", draggable: ko.observable(false)},
         ])
 
-        this.allow = function (data,event) {
+        this.allow = function (data, event) {
             data.draggable(true)
             return true;
         }
@@ -165,27 +164,27 @@
             // console.log(event.target.style)
 
             event.target.style.opacity = '0.4';
-            // console.log("handleDragStart")
+            console.log(data)
+
             // preventDefault and stopPropagation
-            event.stopPropagation()
+            // event.stopPropagation()
+            event.dataTransfer.setData('text/plain', data)
             return true;
         }
 
         this.stopChildPropagation = function (data,event) {
-            event.stopPropagation()
+            // console.log(event.target.parentElement.classList)
+            // if (event.target.parentElement.classList.contains('row')) {
+            //     event.target.parentElement.classList.add('over');
+            // }
+            // if (event.target.parentElement.parentElement.classList.contains('row')) {
+            //     event.target.parentElement.classList.add('over');
+            // }
+            // event.stopPropagation()
         }
-
-        // this.handleDragEnd = function (data, event) {
-        //     event.preventDefault();
-        //     console.log(event.target.style)
-        //     event.target.style.opacity = '1';
-        //     data.draggable(false)
-        //     // console.log("end")
-        // }
 
         this.handleDragOver = function (data, event) {
             event.target.classList.add('over');
-            // console.log(data.name)
         }
 
         this.handleDragEnter = function (data, event) {
@@ -204,6 +203,11 @@
 
         this.handleDrop = function(data, event) {
             event.target.classList.remove('over');
+            console.log(data)
+            const text = event.dataTransfer.getData('text/plain')
+            console.log(text)
+
+            self.documents.remove(text)
             return false;
         }
 
