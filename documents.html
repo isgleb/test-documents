@@ -103,12 +103,15 @@
                 drop: $parent.handleDrop
             }"
         >
-            <span class="document-content" draggable="false">
+            <span class="document-content" >
+<!--                  data-bind="event: { dragover: $parent.stopChildPropagation }">-->
                 <span data-bind="text: name"></span>
                 <span data-bind="text: required ? requiredStr : ''"></span>
                 <span data-bind="text: comment"></span>
             </span>
-            <span class="document-content" draggable="false">
+            <span class="document-content" >
+<!--                  data-bind="event: { dragover: $parent.stopChildPropagation }"-->
+<!--            >-->
                 <span data-bind="text: draggable"></span>
                 <span>edit</span>
                 <span>delete</span>
@@ -163,7 +166,13 @@
 
             event.target.style.opacity = '0.4';
             // console.log("handleDragStart")
+            // preventDefault and stopPropagation
+            event.stopPropagation()
             return true;
+        }
+
+        this.stopChildPropagation = function (data,event) {
+            event.stopPropagation()
         }
 
         // this.handleDragEnd = function (data, event) {
@@ -175,11 +184,12 @@
         // }
 
         this.handleDragOver = function (data, event) {
+            event.target.classList.add('over');
             // console.log(data.name)
         }
-        
+
         this.handleDragEnter = function (data, event) {
-            event.target.classList.add('over');
+            // event.target.classList.add('over');
         }
 
         this.handleDragLeave = function (data, event) {
@@ -189,7 +199,7 @@
         this.handleDragEnd = function (data, event) {
             event.target.style.opacity = '1';
             data.draggable(false)
-            event.toElement.classList.remove('over');
+            // event.toElement.classList.remove('over');
         }
 
         this.handleDrop = function(data, event) {
@@ -300,16 +310,3 @@
     }
 </style>
 </html>
-
-
-
-<!--<a data-bind="attr: { href: url, title: details }">-->
-<!--    Report-->
-<!--</a>-->
-
-<!--<script type="text/javascript">-->
-<!--    var viewModel = {-->
-<!--        url: ko.observable("year-end.html"),-->
-<!--        details: ko.observable("Report including final year-end statistics")-->
-<!--    };-->
-<!--</script>-->
