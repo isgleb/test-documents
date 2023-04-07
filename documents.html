@@ -36,8 +36,8 @@
 </div>
 
     <ul data-bind="foreach: categories">
-        <li draggable="true">
-            <div class="category row">
+        <li>
+            <div class="category row" draggable="true">
                 <div class="category-content">
                     <span data-bind="text: name" ></span>
                     <span data-bind="text: comment" ></span>
@@ -51,7 +51,7 @@
             </div>
             <div data-bind="if: isOpen">
                 <ul data-bind="foreach: documents"  class="document-ul">
-                    <li class="document row">
+                    <li class="document row" draggable="true">
                     <span class="document-content">
                         <span data-bind="text: name"></span>
                         <span data-bind="text: required ? requiredStr : ''"></span>
@@ -154,6 +154,7 @@
     ko.applyBindings(new ReservationsViewModel());
 </script>
 <style>
+
     .document-ul{
         padding-inline-start: 16px;
     }
