@@ -45,7 +45,7 @@
                     <img src="assets/icons/moveArrows.svg" class="control-button pointer" draggable="false" data-bind="event: {mousedown: $parent.allow}"/>
                 </div>
             </div>
-            <div data-bind="visible: isOpen">
+            <div data-bind="if: isOpen">
                 <ul data-bind="foreach: documents"  class="document-ul">
                     <li class="document row" draggable="true">
                         <span class="document-content">
@@ -65,7 +65,7 @@
         </li>
     </ul>
 
-    <ul data-bind="foreach: documents" class="document-ul">
+    <ul data-bind="foreach: documents" class="document--block-ul">
         <li class="document row"
             data-bind="
             attr: { draggable: draggable },
@@ -198,7 +198,8 @@
     @import "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap";
 
     :root {
-        --row-border: 1px solid #DFE4EF
+        --row-border: 1px solid #DFE4EF;
+        --main-font: Fira Sans;
     }
 
     .wrapper {
@@ -242,7 +243,7 @@
 
     h1{
         height: 30px;
-        font-family: Fira Sans;
+        font-family: var(--main-font);
         font-style: normal;
         font-weight: 500;
         font-size: 22px;
@@ -251,6 +252,9 @@
 
     .document-ul{
         padding-inline-start: 16px;
+    }
+    .document--block-ul{
+        padding-inline-start: 0; 
     }
 
     .category{
@@ -328,14 +332,14 @@
     }
 
     .category-name{
-        font-family: Fira Sans;
+        font-family: var(--main-font);
         font-style: normal;
         font-weight: 500;
         font-size: 15px;
     }
 
     .category-comment {
-        font-family: Fira Sans;
+        font-family: var(--main-font);
         font-style: normal;
         font-weight: 400;
         font-size: 11px;
