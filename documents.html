@@ -53,11 +53,11 @@
                             <span data-bind="text: required ? requiredStr : ''"></span>
                             <span data-bind="text: comment"></span>
                         </span>
-                        <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
-                            <img src="assets/icons/editPencil.svg"/>
-                            <img src="assets/icons/deleteBucket.svg"/>
-                            <img src="assets/icons/moveArrows.svg" draggable="false" data-bind="event: {mousedown: $parent.allow}" class="control-button"/>
-                        </span>
+                        <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+                            <img src="assets/icons/editPencil.svg" class="control-button"/>
+                            <img src="assets/icons/deleteBucket.svg" class="control-button"/>
+                            <img src="assets/icons/moveArrows.svg" class="control-button" draggable="false" data-bind="event: {mousedown: $parent.allow}"/>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -78,17 +78,17 @@
                 drop: $parent.handleDrop
             }"
         >
-            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false">
 <!--                 <span data-bind="text: $index"></span>-->
                 <span data-bind="text: name"></span>
                 <span data-bind="text: required ? requiredStr : ''"></span>
                 <span data-bind="text: comment"></span>
             </span>
-            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false" >
                 <span data-bind="text: draggable"></span>
-                <img src="assets/icons/editPencil.svg"/>
-                <img src="assets/icons/deleteBucket.svg"/>
-                <img src="assets/icons/moveArrows.svg" draggable="false" data-bind="event: {mousedown: $parent.allow}" class="control-button"/>
+                <img src="assets/icons/editPencil.svg" draggable="false" class="control-button"/>
+                <img src="assets/icons/deleteBucket.svg" draggable="false" class="control-button"/>
+                <img src="assets/icons/moveArrows.svg" draggable="false" class="control-button" data-bind="event: {mousedown: $parent.allow}"/>
             </span>
         </li>
     </ul>
@@ -268,7 +268,9 @@
     }
 
     .document-content{
-        padding: 6px;
+        display: flex;
+        gap: 14px;
+        margin-right: 14px;
     }
 
     li{
@@ -286,6 +288,8 @@
 
     .control-button {
         cursor: pointer;
+        height: 15px;
+        margin: auto;
     }
 </style>
 </html>
