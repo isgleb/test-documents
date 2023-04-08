@@ -102,47 +102,48 @@ function ReservationsViewModel() {
     }
 
     let clone = null;
+    let rowData = null;
+    let rowIndex = null;
     let rowWidth = 0;
+    let underLyingRow = null
 
     this.dragClick = function(data, e) {
+
+        rowData = data
+        rowIndex = self.documents().findIndex(a => a === data)
+
         const row = e.target.parentElement.parentElement
         clone = row.cloneNode(true)
         rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
 
-        clone.style.position='absolute';
-        clone.style.left= e.clientX - rowWidth + 'px';
-        clone.style.top = e.clientY + 'px';
-        clone.style.width = rowWidth + "px"
         clone.classList.add('dragged-row')
+        clone.style.left= `${e.clientX - rowWidth}px;`;
+        clone.style.top = `${e.clientY}px`;
+        clone.style.width = `${rowWidth}`
         document.body.appendChild(clone);
 
-        e.preventDefault();
-        e.stopPropagation();
-
-        window.onmousemove=handleMouseMove;
-        // window.addEventListener("onmouseup", handleMouseUp)
-        window.onmouseup=handleMouseUp;
+        window.onmousemove = handleDragging;
+        window.onmouseup = handleMouseUp;
     }
 
-    function handleMouseMove(e){
-        // e.preventDefault();
-        // e.stopPropagation();
-        // get mouse position
-        startX=parseInt(e.clientX);
-        startY=parseInt(e.clientY);
+    function handleDragging(e){
+        clone.style.left= `${e.clientX - rowWidth}px`;
+        clone.style.top = `${e.clientY}px`;
 
-        clone.style.left= e.clientX - rowWidth + 'px';
-        clone.style.top = e.clientY + 'px';
+        const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
+        const currentUnderLyingRow = underlyingElements.find(
+            el => ( el.parentElement?.classList.contains("document-list") )
+        )
 
-        console.log("mousemove handler",startX, startY)
+        underLyingRow?.classList.remove('over')
+        currentUnderLyingRow?.classList.add('over')
+        underLyingRow = currentUnderLyingRow
 
-        // window.onmouseup = function (e) {handleMouseUp(e)}
     }
 
-    function handleMouseUp(e){
-        console.log("mouse up")
-        window.onmousemove = ()=>{}
-
+    function handleMouseUp(){
+        window.onmousemove = null
+        clone.remove()
     }
 
     // window.onmousedown=(function(e){handleMouseDown(e);});
