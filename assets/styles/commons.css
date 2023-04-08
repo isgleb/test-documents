@@ -30,6 +30,7 @@ ul{
     display: flex;
     justify-content: space-between;
     background-color: white;
+    opacity: 1;
 }
 
 .row-data-block{
