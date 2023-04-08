@@ -33,7 +33,7 @@
         <li>
             <div class="category row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
                 <div class="category-content document-content">
-                    <img src="assets/icons/tickArrow.svg"  class="tick-element" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
+                    <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                     <span data-bind="text: name" class="category-name"></span>
                     <span data-bind="text: comment" class="category-comment"></span>
                     <span data-bind="text: $parent.length" ></span>
