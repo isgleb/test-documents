@@ -20,7 +20,6 @@ function ReservationsViewModel() {
     );
 
 
-
     this.searchValue = ko.observable("");
 
     this.showClearIcon = ko.computed(() => {
@@ -68,11 +67,12 @@ function ReservationsViewModel() {
     }
 
     this.handleDragOver = function (data, event) {
-        event.target.classList.add('over');
+        // function prevents default
     }
 
     this.handleDragEnter = function (data, event) {
-        // event.target.classList.add('over');
+        event.target.classList.add('over');
+        return true
     }
 
     this.handleDragLeave = function (data, event) {
