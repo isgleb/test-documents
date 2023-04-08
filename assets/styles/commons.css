@@ -57,8 +57,12 @@ ul{
     border-top: var(--row-border);
 }
 
-.over{
+.over-down{
     border-top: 2px solid red;
+}
+
+.over-up{
+    border-bottom: 2px solid red;
 }
 
 .control-button {

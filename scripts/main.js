@@ -7,7 +7,6 @@ function ViewModel() {
     self.categories = ko.observableArray(
         categories.map(cat => {
             cat.isOpen = ko.observable(false);
-            cat.isDraggable = ko.observable(false)
             return cat
         })
     );
@@ -37,6 +36,7 @@ function ViewModel() {
 
         const row = e.target.parentElement.parentElement
         clone = row.cloneNode(true)
+        clone.id+="-dragged"
         rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
 
         clone.classList.add('dragged-row')
@@ -59,17 +59,23 @@ function ViewModel() {
             el => ( el.parentElement?.classList.contains("document-list") )
         )
 
-        underLyingRow?.classList.remove('over')
-        currentUnderLyingRow?.classList.add('over')
+
+        underLyingRow?.classList.remove('over-down', 'over-up')
+        if (currentUnderLyingRow?.id < clone.id.split("-")[0]) {
+            currentUnderLyingRow?.classList.add('over-down')
+        } else {
+            currentUnderLyingRow?.classList.add('over-up')
+        }
         underLyingRow = currentUnderLyingRow
     }
 
     function handleMouseUp(){
         window.onmousemove = null
-        const fromIndex = clone.id
+        const fromIndex = clone.id.split("-")[0]
         clone.remove()
 
         if (underLyingRow) {
+            underLyingRow.classList.remove('over-down', 'over-up')
             const toIndex = underLyingRow.id
             self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
         }
