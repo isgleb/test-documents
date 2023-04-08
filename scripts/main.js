@@ -1,8 +1,10 @@
 
 const requiredStr = "Обязательный"
 
-
 function ReservationsViewModel() {
+    const self = this;
+
+    console.log(categories)
 
     this.searchValue = ko.observable("");
 
@@ -24,12 +26,13 @@ function ReservationsViewModel() {
         parent.isOpen(!isOpenNow)
     }
 
-    this.categories = ko.observableArray([
-        { name: "Обязательные для всех", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех", isOpen: ko.observable(true)},
-        { name: "Обязательные для трудоустройства", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)},
-        { name: "Специальные", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)}
-    ]);
-    const self = this
+
+    this.categories = ko.observableArray(
+        categories.map(cat => {
+            cat.isOpen = ko.observable(false);
+            return cat
+        })
+    );
 
     self.documents = ko.observableArray([
         {name:"1", required: true, comment: "Для всех", draggable: ko.observable(false)},

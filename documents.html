@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/styles/commons.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -25,7 +26,7 @@
 
     <ul data-bind="foreach: categories" style="margin-top: 20px">
         <li>
-            <div class="category row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
+            <div class="row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
                 <div class="category-content document-content">
                     <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                     <span data-bind="text: name" class="category-name"></span>
@@ -74,7 +75,6 @@
             }"
         >
             <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false">
-<!--                 <span data-bind="text: $index"></span>-->
                 <span data-bind="text: name" class="control-button"></span>
                 <span data-bind="text: required ? requiredStr : ''" class="control-button"></span>
                 <span data-bind="text: comment" class="control-button"></span>
@@ -88,19 +88,6 @@
     </ul>
 </div>
 </body>
-<script type='text/javascript' src="assets/scripts/main.js"></script>
-<style>
-    .category{
-        /*height: 48px;*/
-    }
-
-    .over{
-        border-top: 2px solid red;
-    }
-    
-    svg {
-        width: 8px;
-        height: 15px;
-    }
-</style>
+<script type="text/javascript" src="scripts/data.js"></script>
+<script type='text/javascript' src="scripts/main.js"></script>
 </html>

@@ -36,6 +36,10 @@ ul{
     border-top: var(--row-border);
 }
 
+.over{
+    border-top: 2px solid red;
+}
+
 .control-button {
     height: 14px;
     margin: auto;
