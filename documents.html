@@ -34,15 +34,15 @@
             <div class="category row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
                 <div class="category-content document-content">
                     <img src="assets/icons/tickArrow.svg"  class="tick-element" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
-                    <span data-bind="text: name" ></span>
-                    <span data-bind="text: comment" ></span>
+                    <span data-bind="text: name" class="category-name"></span>
+                    <span data-bind="text: comment" class="category-comment"></span>
                     <span data-bind="text: $parent.length" ></span>
                     <span data-bind="text: ($index() === $parent.length -1)" ></span>
                 </div>
-                <div class="category-content">
-                    <span>edit</span>
-                    <span>delete</span>
-                    <span>drag</span>
+                <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+                    <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
+                    <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                    <img src="assets/icons/moveArrows.svg" class="control-button pointer" draggable="false" data-bind="event: {mousedown: $parent.allow}"/>
                 </div>
             </div>
             <div data-bind="visible: isOpen">
@@ -86,10 +86,9 @@
                 <span data-bind="text: comment" class="control-button"></span>
             </span>
             <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false" >
-                <span data-bind="text: draggable" class="control-button"></span>
-                <img src="assets/icons/editPencil.svg" draggable="false" class="control-button"/>
-                <img src="assets/icons/deleteBucket.svg" draggable="false" class="control-button"/>
-                <img src="assets/icons/moveArrows.svg" draggable="false" class="control-button" data-bind="event: {mousedown: $parent.allow}"/>
+                <img src="assets/icons/editPencil.svg" draggable="false" class="control-button pointer"/>
+                <img src="assets/icons/deleteBucket.svg" draggable="false" class="control-button pointer"/>
+                <img src="assets/icons/moveArrows.svg" draggable="false" class="control-button pointer" data-bind="event: {mousedown: $parent.allow}"/>
             </span>
         </li>
     </ul>
@@ -326,6 +325,21 @@
 
     .rotated{
         transform: rotate(-180deg);
+    }
+
+    .category-name{
+        font-family: Fira Sans;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    .category-comment {
+        font-family: Fira Sans;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 11px;
+        color: #8E9CBB;
     }
 </style>
 </html>
