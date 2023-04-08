@@ -33,7 +33,7 @@
         <li>
             <div class="category row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
                 <div class="category-content document-content">
-                    <img src="assets/icons/tickArrow.svg"  class="tick-element" data-bind="click: $parent.openList"/>
+                    <img src="assets/icons/tickArrow.svg"  class="tick-element" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                     <span data-bind="text: name" ></span>
                     <span data-bind="text: comment" ></span>
                     <span data-bind="text: $parent.length" ></span>
@@ -254,6 +254,11 @@
         padding-inline-start: 16px;
     }
 
+    /*.documents-in-categories{*/
+    /*    !*transition: 0.15s linear;*!*/
+    /*    transition: opacity 1s ease-out;*/
+    /*}*/
+
     .category{
         /*height: 48px;*/
     }
@@ -274,6 +279,7 @@
         width: 8px;
         height: 8px;
         padding: 5px;
+        transition: 0.15s linear;
     }
 
     .first-row {
@@ -321,6 +327,10 @@
 
     .required-field{
 
+    }
+
+    .rotated{
+        transform: rotate(-180deg);
     }
 </style>
 </html>
