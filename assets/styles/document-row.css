@@ -19,6 +19,14 @@
     line-height: 108%;
 }
 
-.required-field{
+.document-required{
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 108%;
+    /* identical to box height, or 12px */
 
+
+    color: #FF238D;
 }

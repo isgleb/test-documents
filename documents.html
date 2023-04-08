@@ -36,8 +36,7 @@
                 <div class="document-content row-data-block">
                     <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                     <span data-bind="text: name" class="category-name"></span>
-                    <span data-bind="text: comment" class="category-comment"></span>
-                    <span data-bind="text: $parent.length" ></span>
+                    <span data-bind="text: comment" class="comment"></span>
                 </div>
                 <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
                     <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
@@ -50,8 +49,8 @@
                     <li class="document row" draggable="true">
                         <span class="document-content row-data-block">
                             <span data-bind="text: name" class="control-button"></span>
-                            <span data-bind="text: required ? requiredStr : ''" class="control-button required-field"></span>
-                            <span data-bind="text: comment" class="control-button"></span>
+                            <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
+                            <span data-bind="text: comment" class="control-button comment"></span>
                         </span>
                         <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
                             <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
@@ -81,8 +80,8 @@
         >
             <span class="document-content row-data-block" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false">
                 <span data-bind="text: name" class="control-button document-name"></span>
-                <span data-bind="text: required ? requiredStr : ''" class="control-button"></span>
-                <span data-bind="text: comment" class="control-button"></span>
+                <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
+                <span data-bind="text: comment" class="control-button comment"></span>
             </span>
             <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false" >
                 <img src="assets/icons/editPencil.svg" draggable="false" class="control-button pointer"/>
