@@ -113,12 +113,7 @@ function ReservationsViewModel() {
         clone.style.left= e.clientX - rowWidth + 'px';
         clone.style.top = e.clientY + 'px';
         clone.style.width = rowWidth + "px"
-        // clone.style.offset= "0px, 3px rgba(0, 102, 255, 0.7)"
-        clone.style.boxShadow= "0px 3px 16px rgba(0, 102, 255, 0.7)"
-
-        clone.style.border= "1px solid #DFE4EF"
-
-
+        clone.classList.add('dragged-row')
         document.body.appendChild(clone);
 
         e.preventDefault();

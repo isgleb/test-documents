@@ -33,6 +33,13 @@ ul{
     opacity: 1;
 }
 
+.dragged-row{
+    box-shadow: 0px 3px 16px rgba(0, 102, 255, 0.7);
+    border: var(--row-border);
+
+    /*clone.style.border= "1px solid #DFE4EF"*/
+}
+
 .row-data-block{
     padding: 12px;
 }
