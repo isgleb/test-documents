@@ -49,9 +49,9 @@
                 <ul data-bind="foreach: documents"  class="document-ul">
                     <li class="document row" draggable="true">
                         <span class="document-content">
-                            <span data-bind="text: name"></span>
-                            <span data-bind="text: required ? requiredStr : ''"></span>
-                            <span data-bind="text: comment"></span>
+                            <span data-bind="text: name" class="control-button"></span>
+                            <span data-bind="text: required ? requiredStr : ''" class="control-button"></span>
+                            <span data-bind="text: comment" class="control-button"></span>
                         </span>
                         <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
                             <img src="assets/icons/editPencil.svg" class="control-button"/>
@@ -80,12 +80,12 @@
         >
             <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false">
 <!--                 <span data-bind="text: $index"></span>-->
-                <span data-bind="text: name"></span>
-                <span data-bind="text: required ? requiredStr : ''"></span>
-                <span data-bind="text: comment"></span>
+                <span data-bind="text: name" class="control-button"></span>
+                <span data-bind="text: required ? requiredStr : ''" class="control-button"></span>
+                <span data-bind="text: comment" class="control-button"></span>
             </span>
             <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false" >
-                <span data-bind="text: draggable"></span>
+                <span data-bind="text: draggable" class="control-button"></span>
                 <img src="assets/icons/editPencil.svg" draggable="false" class="control-button"/>
                 <img src="assets/icons/deleteBucket.svg" draggable="false" class="control-button"/>
                 <img src="assets/icons/moveArrows.svg" draggable="false" class="control-button" data-bind="event: {mousedown: $parent.allow}"/>
@@ -288,8 +288,10 @@
 
     .control-button {
         cursor: pointer;
-        height: 15px;
+        height: 14px;
         margin: auto;
+        line-height: 12px;
     }
+    /*todo rename class*/
 </style>
 </html>
