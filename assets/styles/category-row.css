@@ -1,4 +1,6 @@
-
+.category-list{
+    margin-top: 20px
+}
 
 .category-name{
     font-family: var(--main-font);

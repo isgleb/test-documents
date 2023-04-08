@@ -139,12 +139,15 @@ function ReservationsViewModel() {
         underLyingRow?.classList.remove('over')
         currentUnderLyingRow?.classList.add('over')
         underLyingRow = currentUnderLyingRow
-
     }
 
     function handleMouseUp(){
         window.onmousemove = null
+        const toIndex = underLyingRow.id
+        const fromIndex = clone.id
         clone.remove()
+        
+        self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
     }
 
     // window.onmousedown=(function(e){handleMouseDown(e);});

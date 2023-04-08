@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="assets/styles/search.css">
     <link rel="stylesheet" href="assets/styles/document-row.css">
     <link rel="stylesheet" href="assets/styles/commons.css">
-<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap">-->
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +28,7 @@
         </div>
     </div>
 
-    <ul data-bind="foreach: categories" style="margin-top: 20px">
+    <ul data-bind="foreach: categories" class="category-list">
         <li>
             <div class="row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
                 <div class="document-content row-data-block">
@@ -67,7 +65,7 @@
     <ul data-bind="foreach: documents" class="document-list">
         <li class="document row"
             data-bind="
-            attr: { draggable: isDraggable },
+            attr: { draggable: isDraggable, id: $index},
             css: { 'first-row': $index() === 0 },
             event: {
                 dragstart: $parent.handleDragStart,
