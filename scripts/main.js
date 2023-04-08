@@ -117,9 +117,10 @@ function ReservationsViewModel() {
         rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
 
         clone.classList.add('dragged-row')
-        clone.style.left= `${e.clientX - rowWidth}px;`;
+        clone.style.width = `${rowWidth}px`
+        clone.style.left= `${e.clientX - rowWidth}px`;
         clone.style.top = `${e.clientY}px`;
-        clone.style.width = `${rowWidth}`
+
         document.body.appendChild(clone);
 
         window.onmousemove = handleDragging;
