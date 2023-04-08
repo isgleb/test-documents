@@ -1,0 +1,47 @@
+h1{
+    height: 30px;
+    font-family: var(--main-font);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 108%;
+}
+
+:root {
+    --row-border: 1px solid #DFE4EF;
+    --main-font: Fira Sans;
+}
+
+.wrapper {
+    margin: 50px;
+}
+
+li{
+    list-style-type: none;
+}
+
+ul{
+    padding-inline-start: 0;
+}
+
+.row{
+    border: var(--row-border);
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.first-row {
+    border-top: var(--row-border);
+}
+
+.control-button {
+    height: 14px;
+    margin: auto;
+    line-height: 12px;
+}
+
+.pointer{
+    cursor: pointer;
+}

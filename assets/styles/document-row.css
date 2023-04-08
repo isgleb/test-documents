@@ -1,0 +1,17 @@
+.document-ul{
+    padding-inline-start: 16px;
+}
+
+.document{
+    height: 35px;
+}
+
+.document-content{
+    display: flex;
+    gap: 14px;
+    margin-right: 14px;
+}
+
+.required-field{
+
+}

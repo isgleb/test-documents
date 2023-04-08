@@ -1,0 +1,34 @@
+.search-icon{
+    width: 13.66px;
+    height: 14.24px;
+}
+
+.search{
+    border-bottom: 1px solid #8E9CBB;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-input-wrapper{
+    margin: auto 0;
+}
+
+.search:focus-visible{
+    border-bottom: 1px solid #0066FF;
+}
+
+.search-input {
+    border: none;
+    height: 30px;
+}
+.search-input:focus-visible {
+    border: none;
+    outline: none;
+    /*border-bottom: 1px solid #0066FF;*/
+}
+
+.close-icon{
+    width: 11.07px;
+    height: 11.04px;
+    margin: auto 0;
+}

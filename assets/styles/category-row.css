@@ -1,0 +1,31 @@
+.category-comment {
+    font-family: var(--main-font);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    color: #8E9CBB;
+}
+
+.category-name{
+    font-family: var(--main-font);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.category-content{
+    padding: 12px;
+}
+
+.rotated{
+    transform: rotate(-180deg);
+}
+
+.tick-element{
+    border: var(--row-border);
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    padding: 5px;
+    transition: 0.15s linear;
+}

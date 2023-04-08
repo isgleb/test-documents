@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Documents component</title>
+    <link rel="stylesheet" href="assets/styles/category-row.css">
+    <link rel="stylesheet" href="assets/styles/search.css">
+    <link rel="stylesheet" href="assets/styles/document-row.css">
+    <link rel="stylesheet" href="assets/styles/commons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
@@ -65,7 +70,7 @@
         </li>
     </ul>
 
-    <ul data-bind="foreach: documents" class="document--block-ul">
+    <ul data-bind="foreach: documents">
         <li class="document row"
             data-bind="
             attr: { draggable: draggable },
@@ -195,155 +200,19 @@
     ko.applyBindings(new ReservationsViewModel());
 </script>
 <style>
-    @import "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap";
-
-    :root {
-        --row-border: 1px solid #DFE4EF;
-        --main-font: Fira Sans;
-    }
-
-    .wrapper {
-        margin: 50px;
-    }
-
-    .search-icon{
-        width: 13.66px;
-        height: 14.24px;
-    }
-
-    .search{
-        border-bottom: 1px solid #8E9CBB;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .search-input-wrapper{
-        margin: auto 0;
-    }
-
-    .close-icon{
-        width: 11.07px;
-        height: 11.04px;
-        margin: auto 0;
-    }
-
-    .search:focus-visible{
-        border-bottom: 1px solid #0066FF;
-    }
-
-    .search-input {
-        border: none;
-        height: 30px;
-    }
-    .search-input:focus-visible {
-        border: none;
-        outline: none;
-        /*border-bottom: 1px solid #0066FF;*/
-    }
-
-    h1{
-        height: 30px;
-        font-family: var(--main-font);
-        font-style: normal;
-        font-weight: 500;
-        font-size: 22px;
-        line-height: 108%;
-    }
-
-    .document-ul{
-        padding-inline-start: 16px;
-    }
-    .document--block-ul{
-        padding-inline-start: 0; 
-    }
-
     .category{
         /*height: 48px;*/
     }
-    .document{
-        height: 35px;
-    }
-    .row{
-        border: var(--row-border);
-        border-top: none;
-        display: flex;
-        justify-content: space-between;
-        background-color: white;
-    }
 
-    .tick-element{
-        border: var(--row-border);
-        border-radius: 50%;
-        width: 8px;
-        height: 8px;
-        padding: 5px;
-        transition: 0.15s linear;
-    }
-
-    .first-row {
-        border-top: var(--row-border);
-    }
 
     .over{
         border-top: 2px solid red;
     }
 
-    .category-content{
-        padding: 12px;
-    }
-
-    .document-content{
-        display: flex;
-        gap: 14px;
-        margin-right: 14px;
-    }
-
-    li{
-        list-style-type: none;
-    }
-
-    ul{
-        padding-inline-start: 0;
-    }
 
     svg {
         width: 8px;
         height: 15px;
-    }
-
-    .control-button {
-        height: 14px;
-        margin: auto;
-        line-height: 12px;
-    }
-
-    .pointer{
-        cursor: pointer;
-    }
-    /*todo rename class*/
-
-
-    .required-field{
-
-    }
-
-    .rotated{
-        transform: rotate(-180deg);
-    }
-
-    .category-name{
-        font-family: var(--main-font);
-        font-style: normal;
-        font-weight: 500;
-        font-size: 15px;
-    }
-
-    .category-comment {
-        font-family: var(--main-font);
-        font-style: normal;
-        font-weight: 400;
-        font-size: 11px;
-        color: #8E9CBB;
     }
 </style>
 </html>
