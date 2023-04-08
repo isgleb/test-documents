@@ -21,23 +21,24 @@
 
     <div class="search">
         <div class="search-input-wrapper">
-            <svg width="16" height="17" class="search-icon" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.7037 11L14.6569 15.2426M12.1813 7C12.1813 10.3137 9.67826 13 6.59064 13C3.50301 13 1 10.3137 1 7C1 3.68629 3.50301 1 6.59064 1C9.67826 1 12.1813 3.68629 12.1813 7Z" stroke="#8E9CBB" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <img src="assets/icons/searchLoupe.svg"/>
             <input data-bind="value: searchValue" class="search-input">
         </div>
         <div data-bind="if: showClearIcon">
-            <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon"/>
+            <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
         </div>
     </div>
 
     <ul data-bind="foreach: categories" style="margin-top: 20px">
         <li>
-            <div class="category row" draggable="true">
+            <div class="category row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
                 <div class="category-content">
                     <span data-bind="text: name" ></span>
                     <span data-bind="text: comment" ></span>
                     <span data-bind="click: $parent.openList">open</span>
+
+                    <span data-bind="text: $parent.length" ></span>
+                    <span data-bind="text: ($index() === $parent.length -1)" ></span>
                 </div>
                 <div class="category-content">
                     <span>edit</span>
@@ -50,13 +51,13 @@
                     <li class="document row" draggable="true">
                         <span class="document-content">
                             <span data-bind="text: name" class="control-button"></span>
-                            <span data-bind="text: required ? requiredStr : ''" class="control-button"></span>
+                            <span data-bind="text: required ? requiredStr : ''" class="control-button required-field"></span>
                             <span data-bind="text: comment" class="control-button"></span>
                         </span>
                         <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
-                            <img src="assets/icons/editPencil.svg" class="control-button"/>
-                            <img src="assets/icons/deleteBucket.svg" class="control-button"/>
-                            <img src="assets/icons/moveArrows.svg" class="control-button" draggable="false" data-bind="event: {mousedown: $parent.allow}"/>
+                            <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
+                            <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                            <img src="assets/icons/moveArrows.svg" class="control-button pointer" draggable="false" data-bind="event: {mousedown: $parent.allow}"/>
                         </div>
                     </li>
                 </ul>
@@ -69,6 +70,7 @@
         <li class="document row"
             data-bind="
             attr: { draggable: draggable },
+            css: { 'first-row': $index() === 0 },
             event: {
                 dragstart: $parent.handleDragStart,
                 dragend: $parent.handleDragEnd,
@@ -106,6 +108,11 @@
 
         this.showClearIcon = ko.computed(() => {
             return !!this.searchValue();
+        }, this);
+
+        this.isFirst = ko.pureComputed(function() {
+            console.log(this)
+            return true
         }, this);
 
         this.clearSearch = function () {
@@ -185,14 +192,16 @@
             // self.documents.splice(fromIndex, 0, self.documents.splice(toIndex, 1)[0]);
             return false;
         }
-
-
     }
 
     ko.applyBindings(new ReservationsViewModel());
 </script>
 <style>
     @import "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap";
+
+    :root {
+        --row-border: 1px solid #DFE4EF
+    }
 
     .wrapper {
         margin: 50px;
@@ -253,10 +262,15 @@
         height: 35px;
     }
     .row{
-        border: 1px solid #DFE4EF;
+        border: var(--row-border);
+        border-top: none;
         display: flex;
         justify-content: space-between;
         background-color: white;
+    }
+
+    .first-row {
+        border-top: var(--row-border);
     }
 
     .over{
@@ -287,11 +301,19 @@
     }
 
     .control-button {
-        cursor: pointer;
         height: 14px;
         margin: auto;
         line-height: 12px;
     }
+
+    .pointer{
+        cursor: pointer;
+    }
     /*todo rename class*/
+
+
+    .required-field{
+
+    }
 </style>
 </html>
