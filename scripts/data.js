@@ -1,4 +1,4 @@
-
+const header = "Документы"
 
 const categories = [
   { "name": "Обязательные для всех", "documents": [{"name":"fsgs", "required": true, "comment": "Для всех"}, {"name":"fsgs", "required": true, "comment": "Для всех"}], "comment": "Для всех"},
