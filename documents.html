@@ -32,11 +32,10 @@
     <ul data-bind="foreach: categories" style="margin-top: 20px">
         <li>
             <div class="category row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
-                <div class="category-content">
+                <div class="category-content document-content">
+                    <img src="assets/icons/tickArrow.svg"  class="tick-element" data-bind="click: $parent.openList"/>
                     <span data-bind="text: name" ></span>
                     <span data-bind="text: comment" ></span>
-                    <span data-bind="click: $parent.openList">open</span>
-
                     <span data-bind="text: $parent.length" ></span>
                     <span data-bind="text: ($index() === $parent.length -1)" ></span>
                 </div>
@@ -267,6 +266,14 @@
         display: flex;
         justify-content: space-between;
         background-color: white;
+    }
+
+    .tick-element{
+        border: var(--row-border);
+        border-radius: 50%;
+        width: 8px;
+        height: 8px;
+        padding: 5px;
     }
 
     .first-row {
