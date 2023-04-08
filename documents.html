@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Documents component</title>
+    <title>Documents</title>
     <link rel="stylesheet" href="assets/styles/category-row.css">
     <link rel="stylesheet" href="assets/styles/search.css">
     <link rel="stylesheet" href="assets/styles/document-row.css">
@@ -27,10 +27,9 @@
             <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
         </div>
     </div>
-
     <ul data-bind="foreach: categories" class="category-list">
         <li>
-            <div class="row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
+            <div class="row" data-bind="css: { 'first-row': $index() === 0 }">
                 <div class="document-content row-data-block">
                     <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                     <span data-bind="text: name" class="category-name"></span>
@@ -39,7 +38,7 @@
                 <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
                     <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                     <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                    <img src="assets/icons/moveArrows.svg" class="control-button pointer" draggable="false" data-bind="event: {mousedown: $parent.allow}"/>
+                    <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
                 </div>
             </div>
             <div data-bind="if: isOpen">
@@ -50,41 +49,28 @@
                             <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
                             <span data-bind="text: comment" class="control-button comment"></span>
                         </span>
-                        <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+                        <div class="document-content">
                             <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                             <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                            <img src="assets/icons/moveArrows.svg" class="control-button pointer" draggable="false" data-bind="event: {mousedown: $parent.allow}"/>
+                            <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
                         </div>
                     </li>
                 </ul>
             </div>
-
         </li>
     </ul>
 
     <ul data-bind="foreach: documents" class="document-list">
-        <li class="document row"
-            data-bind="
-            attr: { draggable: isDraggable, id: $index},
-            css: { 'first-row': $index() === 0 },
-            event: {
-                dragstart: $parent.handleDragStart,
-                dragend: $parent.handleDragEnd,
-                dragover: $parent.handleDragOver,
-                dragenter: $parent.handleDragEnter,
-                dragleave: $parent.handleDragLeave,
-                drop: $parent.handleDrop
-            }"
-        >
-            <span class="document-content row-data-block" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false">
+        <li class="document row" data-bind="attr: { id: $index }, css: { 'first-row': $index() === 0 }">
+            <span class="document-content row-data-block">
                 <span data-bind="text: name" class="control-button document-name"></span>
                 <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
                 <span data-bind="text: comment" class="control-button comment"></span>
             </span>
-            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false" >
-                <img src="assets/icons/editPencil.svg" draggable="false" class="control-button pointer"/>
-                <img src="assets/icons/deleteBucket.svg" draggable="false" class="control-button pointer"/>
-                <img src="assets/icons/moveArrows.svg" draggable="false" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
+            <span class="document-content" >
+                <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
+                <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>
             </span>
         </li>
     </ul>

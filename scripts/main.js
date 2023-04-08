@@ -12,43 +12,28 @@ function ViewModel() {
         })
     );
 
-    self.documents = ko.observableArray(
-        documents.map(doc => {
-            doc.isDraggable = ko.observable(false)
-            return doc;
-        })
-    );
+    self.documents = ko.observableArray(documents);
 
-    this.searchValue = ko.observable("");
+    self.searchValue = ko.observable("");
 
-    this.showClearIcon = ko.computed(() => {
+    self.showClearIcon = ko.computed(() => {
         return !!this.searchValue();
     }, this);
 
-    this.isFirst = ko.pureComputed(function() {
-        console.log(this)
-        return true
-    }, this);
-
-    this.clearSearch = function () {
+    self.clearSearch = function () {
         this.searchValue("")
     }
 
-    this.openList = function (parent){
+    self.openList = function (parent){
         const isOpenNow = parent.isOpen()
         parent.isOpen(!isOpenNow)
     }
 
     let clone = null;
-    let rowData = null;
-    let rowIndex = null;
     let rowWidth = 0;
     let underLyingRow = null
 
-    this.dragClick = function(data, e) {
-
-        rowData = data
-        rowIndex = self.documents().findIndex(a => a === data)
+    self.dragClick = function(data, e) {
 
         const row = e.target.parentElement.parentElement
         clone = row.cloneNode(true)
