@@ -45,7 +45,7 @@
                     <span>drag</span>
                 </div>
             </div>
-            <div data-bind="if: isOpen">
+            <div data-bind="visible: isOpen">
                 <ul data-bind="foreach: documents"  class="document-ul">
                     <li class="document row" draggable="true">
                         <span class="document-content">
@@ -253,11 +253,6 @@
     .document-ul{
         padding-inline-start: 16px;
     }
-
-    /*.documents-in-categories{*/
-    /*    !*transition: 0.15s linear;*!*/
-    /*    transition: opacity 1s ease-out;*/
-    /*}*/
 
     .category{
         /*height: 48px;*/
