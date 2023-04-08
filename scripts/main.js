@@ -7,14 +7,14 @@ function ReservationsViewModel() {
     self.categories = ko.observableArray(
         categories.map(cat => {
             cat.isOpen = ko.observable(false);
-            cat.draggable = ko.observable(false)
+            cat.isDraggable = ko.observable(false)
             return cat
         })
     );
 
     self.documents = ko.observableArray(
         documents.map(doc => {
-            doc.draggable = ko.observable(false)
+            doc.isDraggable = ko.observable(false)
             return doc;
         })
     );
@@ -43,7 +43,7 @@ function ReservationsViewModel() {
 
 
     this.allow = function (data, event) {
-        data.draggable(true)
+        data.isDraggable(true)
         return true;
     }
 
@@ -81,7 +81,7 @@ function ReservationsViewModel() {
 
     this.handleDragEnd = function (data, event) {
         event.target.style.opacity = '1';
-        data.draggable(false)
+        data.isDraggable(false)
         // event.toElement.classList.remove('over');
     }
 

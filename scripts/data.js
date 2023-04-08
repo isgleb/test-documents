@@ -7,7 +7,7 @@ const categories = [
 ]
 
 const documents = [
-  {name:"1", required: true, comment: "Для всех"},
-  {name:"2", required: true, comment: "Для всех"},
-  {name:"3", required: true, comment: "Для всех"},
+  {name:"1 ghghghgh", required: true, comment: "Для всех"},
+  {name:"2 gjklgjl", required: true, comment: "Для всех"},
+  {name:"3 kgjl;jkg", required: true, comment: "Для всех"},
 ]

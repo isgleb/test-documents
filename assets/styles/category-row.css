@@ -13,9 +13,9 @@
     font-size: 15px;
 }
 
-.category-content{
-    padding: 12px;
-}
+/*.category-content{*/
+/*    padding: 12px;*/
+/*}*/
 
 .rotated{
     transform: rotate(-180deg);

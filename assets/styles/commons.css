@@ -32,6 +32,10 @@ ul{
     background-color: white;
 }
 
+.row-data-block{
+    padding: 12px;
+}
+
 .first-row {
     border-top: var(--row-border);
 }

@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="assets/styles/search.css">
     <link rel="stylesheet" href="assets/styles/document-row.css">
     <link rel="stylesheet" href="assets/styles/commons.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap">
+<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap">-->
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
@@ -26,12 +33,11 @@
     <ul data-bind="foreach: categories" style="margin-top: 20px">
         <li>
             <div class="row" data-bind="css: { 'first-row': $index() === 0 }" draggable="true">
-                <div class="category-content document-content">
+                <div class="document-content row-data-block">
                     <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                     <span data-bind="text: name" class="category-name"></span>
                     <span data-bind="text: comment" class="category-comment"></span>
                     <span data-bind="text: $parent.length" ></span>
-                    <span data-bind="text: ($index() === $parent.length -1)" ></span>
                 </div>
                 <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
                     <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
@@ -42,7 +48,7 @@
             <div data-bind="if: isOpen">
                 <ul data-bind="foreach: documents"  class="document-ul">
                     <li class="document row" draggable="true">
-                        <span class="document-content">
+                        <span class="document-content row-data-block">
                             <span data-bind="text: name" class="control-button"></span>
                             <span data-bind="text: required ? requiredStr : ''" class="control-button required-field"></span>
                             <span data-bind="text: comment" class="control-button"></span>
@@ -62,7 +68,7 @@
     <ul data-bind="foreach: documents">
         <li class="document row"
             data-bind="
-            attr: { draggable: draggable },
+            attr: { draggable: isDraggable },
             css: { 'first-row': $index() === 0 },
             event: {
                 dragstart: $parent.handleDragStart,
@@ -73,8 +79,8 @@
                 drop: $parent.handleDrop
             }"
         >
-            <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false">
-                <span data-bind="text: name" class="control-button"></span>
+            <span class="document-content row-data-block" data-bind="event: { dragover: $parent.stopChildPropagation }" draggable="false">
+                <span data-bind="text: name" class="control-button document-name"></span>
                 <span data-bind="text: required ? requiredStr : ''" class="control-button"></span>
                 <span data-bind="text: comment" class="control-button"></span>
             </span>

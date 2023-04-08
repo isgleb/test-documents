@@ -11,6 +11,13 @@
     gap: 14px;
     margin-right: 14px;
 }
+.document-name{
+    font-family: Fira Sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 108%;
+}
 
 .required-field{
 
