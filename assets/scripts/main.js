@@ -1,0 +1,97 @@
+
+const requiredStr = "Обязательный"
+
+
+function ReservationsViewModel() {
+
+    this.searchValue = ko.observable("");
+
+    this.showClearIcon = ko.computed(() => {
+        return !!this.searchValue();
+    }, this);
+
+    this.isFirst = ko.pureComputed(function() {
+        console.log(this)
+        return true
+    }, this);
+
+    this.clearSearch = function () {
+        this.searchValue("")
+    }
+
+    this.openList = function (parent){
+        const isOpenNow = parent.isOpen()
+        parent.isOpen(!isOpenNow)
+    }
+
+    this.categories = ko.observableArray([
+        { name: "Обязательные для всех", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех", isOpen: ko.observable(true)},
+        { name: "Обязательные для трудоустройства", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)},
+        { name: "Специальные", documents: [{name:"fsgs", required: true, comment: "Для всех"}, {name:"fsgs", required: true, comment: "Для всех"}], comment: "Для всех" , isOpen: ko.observable(false)}
+    ]);
+    const self = this
+
+    self.documents = ko.observableArray([
+        {name:"1", required: true, comment: "Для всех", draggable: ko.observable(false)},
+        {name:"2", required: true, comment: "Для всех", draggable: ko.observable(false)},
+        {name:"3", required: true, comment: "Для всех", draggable: ko.observable(false)},
+    ])
+
+    this.allow = function (data, event) {
+        data.draggable(true)
+        return true;
+    }
+
+    this.handleDragStart = function (data, event) {
+
+        event.target.style.opacity = '0.4';
+        const objectIndex = self.documents().findIndex(element => element === data)
+
+        event.dataTransfer.setData('text/plain', objectIndex)
+        return true;
+    }
+
+    this.stopChildPropagation = function (data,event) {
+        // console.log(event.target.parentElement.classList)
+        // if (event.target.parentElement.classList.contains('row')) {
+        //     event.target.parentElement.classList.add('over');
+        // }
+        // if (event.target.parentElement.parentElement.classList.contains('row')) {
+        //     event.target.parentElement.classList.add('over');
+        // }
+        // event.stopPropagation()
+    }
+
+    this.handleDragOver = function (data, event) {
+        event.target.classList.add('over');
+    }
+
+    this.handleDragEnter = function (data, event) {
+        // event.target.classList.add('over');
+    }
+
+    this.handleDragLeave = function (data, event) {
+        event.target.classList.remove('over');
+    }
+
+    this.handleDragEnd = function (data, event) {
+        event.target.style.opacity = '1';
+        data.draggable(false)
+        // event.toElement.classList.remove('over');
+    }
+
+    this.handleDrop = function(data, event) {
+        event.target.classList.remove('over');
+
+        const fromIndex = self.documents().findIndex(a=> a===data)
+        const toIndex = event.dataTransfer.getData('text/plain')
+        // по разному вверх и вниз, и на шаблоне как раз так, как дает функция, надо изменить отображение рамки и все
+
+        self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
+
+        // self.documents.splice(fromIndex, 0, self.documents.splice(toIndex, 1)[0]);
+        return false;
+    }
+}
+
+ko.applyBindings(new ReservationsViewModel());
