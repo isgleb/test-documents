@@ -48,17 +48,16 @@
             <div data-bind="if: isOpen">
                 <ul data-bind="foreach: documents"  class="document-ul">
                     <li class="document row" draggable="true">
-                    <span class="document-content">
-                        <span data-bind="text: name"></span>
-                        <span data-bind="text: required ? requiredStr : ''"></span>
-                        <span data-bind="text: comment"></span>
-                    </span>
                         <span class="document-content">
-                        <span>edit</span>
-                        <span>delete</span>
-                        <span>drag</span>
-                    </span>
-
+                            <span data-bind="text: name"></span>
+                            <span data-bind="text: required ? requiredStr : ''"></span>
+                            <span data-bind="text: comment"></span>
+                        </span>
+                        <span class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+                            <img src="assets/icons/editPencil.svg"/>
+                            <img src="assets/icons/deleteBucket.svg"/>
+                            <img src="assets/icons/moveArrows.svg" draggable="false" data-bind="event: {mousedown: $parent.allow}" class="control-button"/>
+                        </span>
                     </li>
                 </ul>
             </div>
