@@ -40,9 +40,10 @@ function ViewModel() {
         positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
         positionCorrection.y = - e.target.offsetHeight
 
+        const categoryIndex = e.target.parentElement.parentElement.parentElement.getAttribute('category-index')
         clone = e.target.parentElement.parentElement.cloneNode(true)
-        clone.id+="-dragged"
 
+        clone.setAttribute('category-index', categoryIndex)
         clone.classList.add('dragged-row')
         clone.style.width = `${rowWidth}px`
         clone.style.left= `${e.clientX + positionCorrection.x}px`;
@@ -67,10 +68,15 @@ function ViewModel() {
         )
 
         underLyingRow?.classList.remove('over-down', 'over-up')
-        console.log(underLyingRow?.parentElement.id)
+
+        const underLyingDocIndex = currentUnderLyingRow?.getAttribute("document-index")
+        const underLyingCategoryIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
 
 
-        if (currentUnderLyingRow?.id < clone.id.split("-")[0]) {
+        const cloneDocIndex = clone.getAttribute("document-index")
+        const cloneCatIndex = clone.getAttribute("category-index")
+
+        if (underLyingDocIndex < cloneDocIndex) {
             currentUnderLyingRow?.classList.add('over-down')
         } else {
             currentUnderLyingRow?.classList.add('over-up')
@@ -80,12 +86,12 @@ function ViewModel() {
 
     function handleMouseUp(){
         window.onmousemove = null
-        const fromIndex = clone.id.split("-")[0]
+        const fromIndex = clone.getAttribute("document-index")
         clone.remove()
 
         if (underLyingRow) {
             underLyingRow.classList.remove('over-down', 'over-up')
-            const toIndex = underLyingRow.id
+            const toIndex = underLyingRow.getAttribute("document-index")
             self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
         }
     }
