@@ -4,8 +4,8 @@ const categories = [
   {
     "name": "Обязательные для всех",
     "documents": [
-        {"name":"fsgs", "required": true, "comment": "Для всех"},
-        {"name":"fsgs", "required": true, "comment": "Для всех"}
+        {"name":"Паспорт", "required": true, "comment": "Для вех"},
+        {"name":"ИНН", "required": true, "comment": "Для всех"}
     ],
     "comment": "Для всех"
   },
@@ -29,7 +29,7 @@ const categories = [
 ]
 
 const documents = [
-  {name:"1 ghghghgh", required: true, comment: "Для всех"},
-  {name:"2 gjklgjl", required: true, comment: "Для всех"},
-  {name:"3 kgjl;jkg", required: true, comment: "Для всех"},
+  {name:"Тестовое задание кандидата", required: true, comment: "Для всех"},
+  {name:"Трудовой договор", required: true, comment: "Для всех"},
+  {name:"Мед. книжка", required: true, comment: "Для всех"},
 ]
