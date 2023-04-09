@@ -40,17 +40,13 @@ function ViewModel() {
         positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
         positionCorrection.y = - e.target.offsetHeight
 
-
         const categoryIndex =
             e.target.parentElement.parentElement.getAttribute('category-index') ||
             e.target.parentElement.parentElement.parentElement.parentElement.getAttribute('category-index');
 
-        const documentIndex = e.target.parentElement.parentElement.getAttribute('document-index')
+        const documentIndex = e.target.parentElement.parentElement.getAttribute('document-index') || -1
+
         clone = e.target.parentElement.parentElement.cloneNode(true)
-
-
-        console.log(categoryIndex)
-        console.log(documentIndex)
 
         clone.setAttribute('category-index', categoryIndex)
         clone.setAttribute('document-index', documentIndex)
@@ -80,40 +76,30 @@ function ViewModel() {
 
         const underLyingDocIndex = currentUnderLyingRow?.getAttribute("document-index")
         const underLyingCatIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
-
-
+        
         const cloneDocIndex = clone.getAttribute("document-index")
         const cloneCatIndex = clone.getAttribute("category-index")
 
-        console.log(cloneCatIndex)
-
-        if (cloneCatIndex) {
-            if (underLyingDocIndex < cloneDocIndex) {
-                currentUnderLyingRow?.classList.add('over-down')
-            } else {
-                currentUnderLyingRow?.classList.add('over-up')
-            }
+        let cssClass
+        if (cloneDocIndex >= 0) {
+            cssClass = underLyingDocIndex < cloneDocIndex ? 'over-down' : 'over-up'
         } else {
-            if (underLyingCatIndex < cloneCatIndex) {
-                currentUnderLyingRow?.classList.add('over-down')
-            } else {
-                currentUnderLyingRow?.classList.add('over-up')
-            }
+            cssClass = underLyingCatIndex < cloneCatIndex ? 'over-down' : 'over-up'
         }
-
+        currentUnderLyingRow?.classList.add(cssClass)
         underLyingRow = currentUnderLyingRow
     }
 
     function handleMouseUp(){
         window.onmousemove = null
-        const fromIndex = clone.getAttribute("document-index")
+        // const fromIndex = clone.getAttribute("document-index")
         clone.remove()
-
-        if (underLyingRow) {
+        //
+        // if (underLyingRow) {
             underLyingRow.classList.remove('over-down', 'over-up')
-            const toIndex = underLyingRow.getAttribute("document-index")
-            self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
-        }
+        //     const toIndex = underLyingRow.getAttribute("document-index")
+        //     self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
+        // }
     }
 }
 
