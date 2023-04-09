@@ -3,7 +3,7 @@ const requiredStr = "Обязательный"
 
 function ViewModel() {
     const self = this;
-    
+
     self.categories = ko.observableArray(
         categories.map(cat => {
             cat.isOpen = ko.observable(true);

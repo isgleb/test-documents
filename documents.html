@@ -27,24 +27,26 @@
                 <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
             </div>
         </div>
-        <ul data-bind="foreach: categories" class="category-list">
-            <li class="category-row">
+<!--        <ul data-bind="foreach: categories" class="category-list">-->
+        <ul data-bind="foreach: { data: categories, as: 'category', noChildContext: true }" class="category-list">
+            <li class="category-row" data-bind="attr: { id: $index + '-category'}">
                 <div class="row" data-bind="css: { 'first-row': $index() === 0 }">
                     <div class="document-content row-data-block">
-                        <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
-                        <span data-bind="text: name" class="category-name"></span>
-                        <span data-bind="text: comment" class="comment"></span>
+                        <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: category.openList, css: {'rotated': category.isOpen}"/>
+                        <span data-bind="text: category.name" class="category-name"></span>
+                        <span data-bind="text: category.comment" class="comment"></span>
                     </div>
-                    <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+                    <div class="document-content">
                         <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                         <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                        <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
+                        <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: category.dragClick}"/>
                     </div>
                 </div>
-                <div data-bind="if: isOpen">
+                <div data-bind="if: category.isOpen">
                     <ul data-bind="foreach: documents" class="document-list document-ul">
                         <li class="document-row document row" data-bind="attr: { id: $index }, css: { 'first-row': $index() === 0 }">
                             <span class="document-content row-data-block">
+                                <span data-bind="text: $index" class="control-button document-name"></span>
                                 <span data-bind="text: name" class="control-button document-name"></span>
                                 <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
                                 <span data-bind="text: comment" class="control-button comment"></span>
