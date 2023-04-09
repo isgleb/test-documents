@@ -95,33 +95,32 @@ function ViewModel() {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
 
             const areCategories = fromDocIndex < 0 && toDocIndex < 0
-            const bothHasCategory = !(fromCatIndex < 0 && toCatIndex < 0)
+            const fromHasCategory = 0 <= fromCatIndex
+            const toHasCategory = 0 <= toCatIndex
+            const bothHasCategory = fromHasCategory && toHasCategory
 
             switch (true){
-                case !bothHasCategory: self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); break;
-                case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]);
+                case !bothHasCategory: self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
+                case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]); return;
             }
 
             let fromDocument
 
-            if (fromCatIndex < 0 && 0 <= fromDocIndex) {
-                fromDocument = self.documents.splice(fromDocIndex, 1)[0]
-            }
-
-            if (0 <= fromDocIndex && 0 <= fromCatIndex) {
+            if (fromHasCategory) {
                 const documents = self.categories().at(fromCatIndex).documents()
                 fromDocument = documents.splice(fromDocIndex, 1)[0]
                 self.categories().at(fromCatIndex).documents(documents)
+            } else {
+                fromDocument = self.documents.splice(fromDocIndex, 1)[0]
             }
 
-            if (toCatIndex < 0 && 0 <= toDocIndex) {
-                self.documents.splice(toDocIndex, 0, fromDocument)
-            }
-
-            if (0 <= toDocIndex && 0 <= toCatIndex) {
+            if (toHasCategory) {
                 const documents = self.categories().at(toCatIndex).documents()
                 documents.splice(toDocIndex, 0, fromDocument)
                 self.categories().at(fromCatIndex).documents(documents)
+                self.documents.splice(toDocIndex, 0, fromDocument)
+            } else {
+                self.documents.splice(toDocIndex, 0, fromDocument)
             }
         }
     }
