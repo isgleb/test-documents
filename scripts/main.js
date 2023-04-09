@@ -45,7 +45,7 @@ function ViewModel() {
         clone = e.target.parentElement.parentElement.cloneNode(true)
 
         clone.setAttribute('category-index', categoryIndex)
-        clone.setAttribute('document-index', documentIndex)
+        // clone.setAttribute('document-index', documentIndex) todo// makes problem
 
         clone.classList.add('dragged-row')
         clone.style.width = `${rowWidth}px`
@@ -89,24 +89,35 @@ function ViewModel() {
         underLyingRow = currentUnderLyingRow
     }
 
-    function handleMouseUp() {
+    // function handleMouseUp() {
+    //     window.onmousemove = null
+    //     const documentIndex = clone.getAttribute("document-index")
+    //     const categoryIndex = clone.getAttribute("category-index")
+    //     clone.remove()
+    //
+    //     if (underLyingRow) {
+    //         const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
+    //         console.log(toDocIndex, toCatIndex)
+    //         underLyingRow.classList.remove('over-down', 'over-up')
+    //         self.documents.splice(toDocIndex, 0, self.documents.splice(documentIndex, 1)[0]);
+    //     }
+    // }
+
+    function handleMouseUp(){
         window.onmousemove = null
-        const documentIndex = clone.getAttribute("document-index")
-        const categoryIndex = clone.getAttribute("category-index")
+        const fromIndex = clone.getAttribute("document-index")
         clone.remove()
 
+        console.log(clone)
+
         if (underLyingRow) {
-            const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
-            console.log(toDocIndex, toCatIndex)
-
-
-
-
-            
             underLyingRow.classList.remove('over-down', 'over-up')
-            self.documents.splice(toDocIndex, 0, self.documents.splice(documentIndex, 1)[0]);
+            // const toIndex = underLyingRow.getAttribute("document-index")
+            const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
+            self.documents.splice(toDocIndex, 0, self.documents.splice(fromIndex, 1)[0]);
         }
     }
+
 
     function getIndexes(rowElement){
         const docIndex = rowElement?.getAttribute("document-index") || -1;
