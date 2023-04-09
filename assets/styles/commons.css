@@ -1,3 +1,9 @@
+body {
+    background-color: white;
+    font-family: Fira Sans;
+}
+
+
 h1{
     height: 30px;
     font-family: var(--main-font);
@@ -13,7 +19,8 @@ h1{
 }
 
 .wrapper {
-    margin: 50px;
+    /*margin: 50px;*/
+    margin: 2%;
 }
 
 li{
@@ -29,7 +36,6 @@ ul{
     border-top: none;
     display: flex;
     justify-content: space-between;
-    background-color: white;
     opacity: 1;
 }
 

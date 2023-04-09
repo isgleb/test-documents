@@ -23,5 +23,6 @@
     width: 8px;
     height: 8px;
     padding: 5px;
+    margin: auto;
     transition: 0.15s linear;
 }

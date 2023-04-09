@@ -45,7 +45,7 @@ function ViewModel() {
         clone = e.target.parentElement.parentElement.cloneNode(true)
 
         clone.setAttribute('category-index', categoryIndex)
-        clone.setAttribute('document-index', documentIndex) //todo makes problem
+        clone.setAttribute('document-index', documentIndex)
 
         clone.classList.add('dragged-row')
         clone.style.width = `${rowWidth}px`
@@ -90,28 +90,21 @@ function ViewModel() {
         const [fromDocIndex, fromCatIndex] = getIndexes(clone)
         clone.remove()
         underLyingRow?.classList.remove('over-down', 'over-up')
-        // debugger
 
         if (underLyingRow) {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
-
-            console.log()
 
             const areCategories = fromDocIndex < 0 && toDocIndex < 0
             const fromHasCategory = 0 <= fromCatIndex
             const toHasCategory = 0 <= toCatIndex
 
-
             console.log(fromHasCategory)
             console.log(toHasCategory)
 
-
-            // debugger
             switch (true) {
                 case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]); return;
                 case (fromHasCategory && toHasCategory): self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
             }
-
 
             let fromDocument
 
