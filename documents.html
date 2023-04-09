@@ -27,10 +27,10 @@
                 <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
             </div>
         </div>
-        <ul data-bind="foreach: categories" class="category-list">
+        <ul class="category-list" data-bind="foreach: categories">
             <li>
-                <div class="category-row row" data-bind="attr: { 'category-index': $index}, css: { 'first-row': $index() === 0 }">
-                    <div class="row-content row-data-block">
+                <div class="category row" data-bind="attr: { 'category-index': $index}, css: { 'first-row': $index() === 0 }">
+                    <div class="row-content data-block">
                         <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': $parent.isOpen}"/>
                         <span data-bind="text: name" class="category-name"></span>
                         <span data-bind="text: comment" class="comment"></span>
@@ -42,10 +42,10 @@
                     </div>
                 </div>
                 <div data-bind="if: isOpen">
-                    <ul data-bind="foreach: documents, attr: { 'category-index': $index() }" class="document-list document-ul">
+                    <ul class="document-list document-ul" data-bind="foreach: documents, attr: { 'category-index': $index() }">
                         <li>
-                            <div class="document-row row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
-                                <span class="row-content row-data-block">
+                            <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
+                                <span class="row-content data-block">
                                     <span data-bind="text: name" class="control-button document-name"></span>
                                     <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
                                     <span data-bind="text: comment" class="control-button comment"></span>
@@ -63,17 +63,17 @@
         </ul>
         <ul data-bind="foreach: documents" category-index="-1" class="document-list">
             <li>
-                <div class="document-row row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
-                    <span class="row-content row-data-block">
+                <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
+                    <div class="row-content data-block">
                         <span data-bind="text: name" class="control-button document-name"></span>
                         <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
                         <span data-bind="text: comment" class="control-button comment"></span>
-                    </span>
-                    <span class="row-content" >
+                    </div>
+                    <div class="row-content" >
                         <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                         <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
                         <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>
-                    </span>
+                    </div>
                 </div>
             </li>
         </ul>
