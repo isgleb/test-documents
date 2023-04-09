@@ -98,6 +98,8 @@ function ViewModel() {
             const fromHasCategory = 0 <= fromCatIndex
             const toHasCategory = 0 <= toCatIndex
 
+            //todo if out of bounds document add to not categorised
+
             console.log(fromHasCategory)
             console.log(toHasCategory)
 

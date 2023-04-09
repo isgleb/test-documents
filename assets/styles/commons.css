@@ -36,7 +36,7 @@ ul{
     border-top: none;
     display: flex;
     justify-content: space-between;
-    opacity: 1;
+    background-color: white;
 }
 
 .row-content{
@@ -49,6 +49,7 @@ ul{
     position: absolute;
     box-shadow: 0px 3px 16px rgba(0, 102, 255, 0.7);
     border: var(--row-border);
+    /*background-color: white;*/
 
     /*clone.style.border= "1px solid #DFE4EF"*/
 }
