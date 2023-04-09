@@ -57,11 +57,15 @@ function ViewModel() {
         clone.style.top = `${e.clientY + positionCorrection.y}px`;
 
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
+        
+        const rowClass = e.target?.parentElement.parentElement.classList[0]
+        console.log(e.target?.parentElement.parentElement.classList)
         const currentUnderLyingRow = underlyingElements.find(
-            el => ( el.parentElement?.classList.contains("document-list") )
+            el => ( el?.classList.contains(rowClass) && !el?.classList.contains("dragged-row") )
         )
 
         underLyingRow?.classList.remove('over-down', 'over-up')
+
         if (currentUnderLyingRow?.id < clone.id.split("-")[0]) {
             currentUnderLyingRow?.classList.add('over-down')
         } else {

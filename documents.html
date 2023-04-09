@@ -28,7 +28,7 @@
         </div>
     </div>
     <ul data-bind="foreach: categories" class="category-list">
-        <li>
+        <li class="category-row">
             <div class="row" data-bind="css: { 'first-row': $index() === 0 }">
                 <div class="document-content row-data-block">
                     <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
@@ -43,7 +43,7 @@
             </div>
             <div data-bind="if: isOpen">
                 <ul data-bind="foreach: documents"  class="document-ul">
-                    <li class="document row" draggable="true">
+                    <li class="document-row document row" draggable="true">
                         <span class="document-content row-data-block">
                             <span data-bind="text: name" class="control-button"></span>
                             <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
@@ -61,7 +61,7 @@
     </ul>
 
     <ul data-bind="foreach: documents" class="document-list">
-        <li class="document row" data-bind="attr: { id: $index }, css: { 'first-row': $index() === 0 }">
+        <li class="document-row document row" data-bind="attr: { id: $index }, css: { 'first-row': $index() === 0 }">
             <span class="document-content row-data-block">
                 <span data-bind="text: name" class="control-button document-name"></span>
                 <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
