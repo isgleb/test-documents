@@ -40,11 +40,7 @@ function ViewModel() {
         positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
         positionCorrection.y = - e.target.offsetHeight
 
-        const categoryIndex =
-            e.target.parentElement.parentElement.getAttribute('category-index') ||
-            e.target.parentElement.parentElement.parentElement.parentElement.getAttribute('category-index');
-
-        const documentIndex = e.target.parentElement.parentElement.getAttribute('document-index') || -1
+        const [categoryIndex, documentIndex] = getIndexes(e.target.parentElement.parentElement)
 
         clone = e.target.parentElement.parentElement.cloneNode(true)
 
@@ -76,7 +72,7 @@ function ViewModel() {
 
         const underLyingDocIndex = currentUnderLyingRow?.getAttribute("document-index")
         const underLyingCatIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
-        
+
         const cloneDocIndex = clone.getAttribute("document-index")
         const cloneCatIndex = clone.getAttribute("category-index")
 
@@ -90,16 +86,25 @@ function ViewModel() {
         underLyingRow = currentUnderLyingRow
     }
 
-    function handleMouseUp(){
+    function handleMouseUp() {
         window.onmousemove = null
-        // const fromIndex = clone.getAttribute("document-index")
+        const documentIndex = clone.getAttribute("document-index")
+        const categoryIndex = clone.getAttribute("category-index")
         clone.remove()
-        //
-        // if (underLyingRow) {
+
+        const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
+
+        if (underLyingRow && documentIndex >= -1) {
             underLyingRow.classList.remove('over-down', 'over-up')
-        //     const toIndex = underLyingRow.getAttribute("document-index")
-        //     self.documents.splice(toIndex, 0, self.documents.splice(fromIndex, 1)[0]);
-        // }
+            self.documents.splice(toDocIndex, 0, self.documents.splice(documentIndex, 1)[0]);
+        }
+    }
+
+    function getIndexes(rowElement){
+        const docIndex = rowElement?.getAttribute("document-index") || -1
+        const catIndex = rowElement?.getAttribute("category-index") ||
+            underLyingRow?.parentElement.parentElement.getAttribute('category-index');
+        return [docIndex, catIndex]
     }
 }
 
