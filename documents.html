@@ -17,64 +17,64 @@
 </head>
 <body>
     <div class="wrapper">
-    <h1 data-bind="text: header"></h1>
-    <div class="search">
-        <div class="search-input-wrapper">
-            <img src="assets/icons/searchLoupe.svg"/>
-            <input data-bind="value: searchValue" class="search-input">
+        <h1 data-bind="text: header"></h1>
+        <div class="search">
+            <div class="search-input-wrapper">
+                <img src="assets/icons/searchLoupe.svg"/>
+                <input data-bind="value: searchValue" class="search-input">
+            </div>
+            <div data-bind="if: showClearIcon">
+                <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
+            </div>
         </div>
-        <div data-bind="if: showClearIcon">
-            <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
-        </div>
-    </div>
-    <ul data-bind="foreach: categories" class="category-list">
-        <li class="category-row">
-            <div class="row" data-bind="css: { 'first-row': $index() === 0 }">
-                <div class="document-content row-data-block">
-                    <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
-                    <span data-bind="text: name" class="category-name"></span>
-                    <span data-bind="text: comment" class="comment"></span>
+        <ul data-bind="foreach: categories" class="category-list">
+            <li class="category-row">
+                <div class="row" data-bind="css: { 'first-row': $index() === 0 }">
+                    <div class="document-content row-data-block">
+                        <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
+                        <span data-bind="text: name" class="category-name"></span>
+                        <span data-bind="text: comment" class="comment"></span>
+                    </div>
+                    <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+                        <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
+                        <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                        <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
+                    </div>
                 </div>
-                <div class="document-content" data-bind="event: { dragover: $parent.stopChildPropagation }">
+                <div data-bind="if: isOpen">
+                    <ul data-bind="foreach: documents" class="document-list document-ul">
+                        <li class="document-row document row" data-bind="attr: { id: $index }, css: { 'first-row': $index() === 0 }">
+                            <span class="document-content row-data-block">
+                                <span data-bind="text: name" class="control-button document-name"></span>
+                                <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
+                                <span data-bind="text: comment" class="control-button comment"></span>
+                            </span>
+                                        <span class="document-content" >
+                                <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
+                                <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                                <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $root.dragClick}" class="control-button pointer"/>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <ul data-bind="foreach: documents" class="document-list">
+            <li class="document-row document row" data-bind="attr: { id: $index }, css: { 'first-row': $index() === 0 }">
+                <span class="document-content row-data-block">
+                    <span data-bind="text: name" class="control-button document-name"></span>
+                    <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
+                    <span data-bind="text: comment" class="control-button comment"></span>
+                </span>
+                <span class="document-content" >
                     <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                     <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                    <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
-                </div>
-            </div>
-            <div data-bind="if: isOpen">
-                <ul data-bind="foreach: documents"  class="document-ul">
-                    <li class="document-row document row" draggable="true">
-                        <span class="document-content row-data-block">
-                            <span data-bind="text: name" class="control-button"></span>
-                            <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
-                            <span data-bind="text: comment" class="control-button comment"></span>
-                        </span>
-                        <div class="document-content">
-                            <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
-                            <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                            <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </li>
-    </ul>
-
-    <ul data-bind="foreach: documents" class="document-list">
-        <li class="document-row document row" data-bind="attr: { id: $index }, css: { 'first-row': $index() === 0 }">
-            <span class="document-content row-data-block">
-                <span data-bind="text: name" class="control-button document-name"></span>
-                <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
-                <span data-bind="text: comment" class="control-button comment"></span>
-            </span>
-            <span class="document-content" >
-                <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
-                <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>
-            </span>
-        </li>
-    </ul>
-</div>
+                    <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>
+                </span>
+            </li>
+        </ul>
+    </div>
 </body>
 <script type="text/javascript" src="scripts/data.js"></script>
 <script type='text/javascript' src="scripts/main.js"></script>

@@ -4,9 +4,12 @@ const requiredStr = "Обязательный"
 function ViewModel() {
     const self = this;
 
+    self.catDocuments = [{"name":"fsgs", "required": true, "comment": "Для всех"}, {"name":"fsgs", "required": true, "comment": "Для всех"}]
+
     self.categories = ko.observableArray(
         categories.map(cat => {
-            cat.isOpen = ko.observable(false);
+            cat.isOpen = ko.observable(true);
+            cat.documents = ko.observable(self.catDocuments)
             return cat
         })
     );
@@ -31,6 +34,13 @@ function ViewModel() {
     let positionCorrection = {x: null, y: null}
 
     self.dragClick = (data, e) => {
+        console.log(data)
+    }
+
+
+    self.dragClick = (data, e) => {
+
+        console.log(data)
 
         const rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
         const rightMargin = Number(window.getComputedStyle(e.currentTarget.parentElement).marginRight.replace("px",""))
@@ -57,7 +67,7 @@ function ViewModel() {
         clone.style.top = `${e.clientY + positionCorrection.y}px`;
 
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
-        
+
         const rowClass = e.target?.parentElement.parentElement.classList[0]
         console.log(e.target?.parentElement.parentElement.classList)
         const currentUnderLyingRow = underlyingElements.find(
