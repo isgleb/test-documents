@@ -29,20 +29,28 @@ function ViewModel() {
     }
 
     let clone = null;
-    let rowWidth = 0;
-    let underLyingRow = null
+    let underLyingRow = null;
+    let positionCorrection = {x: null, y: null}
+
+    self.mouseOverRow = function(data, e) {
+        // console.log(data) //todo it works
+    }
 
     self.dragClick = function(data, e) {
+        
+        const rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
+        const rightMargin = Number(window.getComputedStyle(e.currentTarget.parentElement).marginRight.replace("px",""))
 
-        const row = e.target.parentElement.parentElement
-        clone = row.cloneNode(true)
+        positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
+        positionCorrection.y = - e.target.offsetHeight
+
+        clone = e.target.parentElement.parentElement.cloneNode(true)
         clone.id+="-dragged"
-        rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
 
         clone.classList.add('dragged-row')
         clone.style.width = `${rowWidth}px`
-        clone.style.left= `${e.clientX - rowWidth}px`;
-        clone.style.top = `${e.clientY}px`;
+        clone.style.left= `${e.clientX + positionCorrection.x}px`;
+        clone.style.top = `${e.clientY + positionCorrection.y}px`;
 
         document.body.appendChild(clone);
 
@@ -51,8 +59,8 @@ function ViewModel() {
     }
 
     function handleDragging(e){
-        clone.style.left= `${e.clientX - rowWidth}px`;
-        clone.style.top = `${e.clientY}px`;
+        clone.style.left= `${e.clientX + positionCorrection.x}px`;
+        clone.style.top = `${e.clientY + positionCorrection.y}px`;
 
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
         const currentUnderLyingRow = underlyingElements.find(
