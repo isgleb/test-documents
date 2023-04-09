@@ -69,9 +69,12 @@ function ViewModel() {
         )
 
         underLyingRow?.classList.remove('over-down', 'over-up')
+        //
+        // const underLyingDocIndex = currentUnderLyingRow?.getAttribute("document-index")
+        // const underLyingCatIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
+        const [underLyingDocIndex, underLyingCatIndex] = getIndexes(currentUnderLyingRow)
 
-        const underLyingDocIndex = currentUnderLyingRow?.getAttribute("document-index")
-        const underLyingCatIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
+        // console.log(underLyingDocIndex, underLyingCatIndex)
 
         const cloneDocIndex = clone.getAttribute("document-index")
         const cloneCatIndex = clone.getAttribute("category-index")
@@ -92,19 +95,25 @@ function ViewModel() {
         const categoryIndex = clone.getAttribute("category-index")
         clone.remove()
 
-        const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
+        if (underLyingRow) {
+            const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
+            console.log(toDocIndex, toCatIndex)
 
-        if (underLyingRow && documentIndex >= -1) {
+
+
+
+            
             underLyingRow.classList.remove('over-down', 'over-up')
             self.documents.splice(toDocIndex, 0, self.documents.splice(documentIndex, 1)[0]);
         }
     }
 
     function getIndexes(rowElement){
-        const docIndex = rowElement?.getAttribute("document-index") || -1
+        const docIndex = rowElement?.getAttribute("document-index") || -1;
         const catIndex = rowElement?.getAttribute("category-index") ||
-            underLyingRow?.parentElement.parentElement.getAttribute('category-index');
-        return [docIndex, catIndex]
+            rowElement?.parentElement.parentElement.getAttribute('category-index');
+
+        return [docIndex, Number(catIndex)]
     }
 }
 
