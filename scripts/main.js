@@ -40,16 +40,25 @@ function ViewModel() {
         positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
         positionCorrection.y = - e.target.offsetHeight
 
-        const categoryIndex = e.target.parentElement.parentElement.parentElement.getAttribute('category-index')
+
+        const categoryIndex =
+            e.target.parentElement.parentElement.getAttribute('category-index') ||
+            e.target.parentElement.parentElement.parentElement.parentElement.getAttribute('category-index');
+
+        const documentIndex = e.target.parentElement.parentElement.getAttribute('document-index')
         clone = e.target.parentElement.parentElement.cloneNode(true)
 
+
+        console.log(categoryIndex)
+        console.log(documentIndex)
+
         clone.setAttribute('category-index', categoryIndex)
+        clone.setAttribute('document-index', documentIndex)
+
         clone.classList.add('dragged-row')
         clone.style.width = `${rowWidth}px`
         clone.style.left= `${e.clientX + positionCorrection.x}px`;
         clone.style.top = `${e.clientY + positionCorrection.y}px`;
-
-        console.log(clone.classList)
 
         document.body.appendChild(clone);
 
@@ -63,28 +72,35 @@ function ViewModel() {
 
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
 
-        const rowClass = e.target?.parentElement.parentElement.classList[0]
-
-        console.log(rowClass)
-
         const currentUnderLyingRow = underlyingElements.find(
-            el => ( el?.classList.contains(rowClass) && !el?.classList.contains("dragged-row") )
+            el => ( el?.classList.contains(clone.classList[0]) && !el?.classList.contains("dragged-row") )
         )
 
         underLyingRow?.classList.remove('over-down', 'over-up')
 
         const underLyingDocIndex = currentUnderLyingRow?.getAttribute("document-index")
-        const underLyingCategoryIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
+        const underLyingCatIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
 
 
         const cloneDocIndex = clone.getAttribute("document-index")
         const cloneCatIndex = clone.getAttribute("category-index")
 
-        if (underLyingDocIndex < cloneDocIndex) {
-            currentUnderLyingRow?.classList.add('over-down')
+        console.log(cloneCatIndex)
+
+        if (cloneCatIndex) {
+            if (underLyingDocIndex < cloneDocIndex) {
+                currentUnderLyingRow?.classList.add('over-down')
+            } else {
+                currentUnderLyingRow?.classList.add('over-up')
+            }
         } else {
-            currentUnderLyingRow?.classList.add('over-up')
+            if (underLyingCatIndex < cloneCatIndex) {
+                currentUnderLyingRow?.classList.add('over-down')
+            } else {
+                currentUnderLyingRow?.classList.add('over-up')
+            }
         }
+
         underLyingRow = currentUnderLyingRow
     }
 
