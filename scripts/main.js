@@ -6,7 +6,7 @@ function ViewModel() {
 
     self.categories = ko.observableArray(
         categories.map(cat => {
-            cat.isOpen = ko.observable(false);
+            cat.isOpen = ko.observable(true);
             cat.documents = ko.observable(cat.documents)
             return cat
         })
@@ -40,12 +40,12 @@ function ViewModel() {
         positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
         positionCorrection.y = - e.target.offsetHeight
 
-        const [categoryIndex, documentIndex] = getIndexes(e.target.parentElement.parentElement)
+        const [documentIndex, categoryIndex] = getIndexes(e.target.parentElement.parentElement)
 
         clone = e.target.parentElement.parentElement.cloneNode(true)
 
         clone.setAttribute('category-index', categoryIndex)
-        // clone.setAttribute('document-index', documentIndex) todo// makes problem
+        clone.setAttribute('document-index', documentIndex) //todo makes problem
 
         clone.classList.add('dragged-row')
         clone.style.width = `${rowWidth}px`
@@ -89,35 +89,40 @@ function ViewModel() {
         underLyingRow = currentUnderLyingRow
     }
 
-    // function handleMouseUp() {
-    //     window.onmousemove = null
-    //     const documentIndex = clone.getAttribute("document-index")
-    //     const categoryIndex = clone.getAttribute("category-index")
-    //     clone.remove()
-    //
-    //     if (underLyingRow) {
-    //         const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
-    //         console.log(toDocIndex, toCatIndex)
-    //         underLyingRow.classList.remove('over-down', 'over-up')
-    //         self.documents.splice(toDocIndex, 0, self.documents.splice(documentIndex, 1)[0]);
-    //     }
-    // }
-
     function handleMouseUp(){
         window.onmousemove = null
-        const fromIndex = clone.getAttribute("document-index")
+        const [fromDocIndex, fromCatIndex] = getIndexes(clone)
         clone.remove()
-
-        console.log(clone)
+        underLyingRow?.classList.remove('over-down', 'over-up')
 
         if (underLyingRow) {
-            underLyingRow.classList.remove('over-down', 'over-up')
-            // const toIndex = underLyingRow.getAttribute("document-index")
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
-            self.documents.splice(toDocIndex, 0, self.documents.splice(fromIndex, 1)[0]);
+
+            let fromDocument
+
+            if (fromCatIndex < 0 && 0 <= fromDocIndex ) {
+                fromDocument = self.documents.splice(fromDocIndex, 1)[0]
+            }
+
+            if (0 <= fromDocIndex && 0 <= fromCatIndex) {
+                const documents = self.categories().at(fromCatIndex).documents()
+                fromDocument = documents.splice(fromDocIndex, 1)[0]
+                self.categories().at(fromCatIndex).documents(documents)
+            }
+
+            if ( toCatIndex < 0 && 0 <= toDocIndex ) {
+                self.documents.splice(toDocIndex, 0, fromDocument)
+            }
+
+            if (0 <= toDocIndex && 0 <= toCatIndex) {
+                const documents = self.categories().at(toCatIndex).documents()
+                documents.splice(toDocIndex, 0, fromDocument)
+                self.categories().at(fromCatIndex).documents(documents)
+            }
+
+            console.log(fromDocument)
         }
     }
-
 
     function getIndexes(rowElement){
         const docIndex = rowElement?.getAttribute("document-index") || -1;
