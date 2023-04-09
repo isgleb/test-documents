@@ -69,12 +69,8 @@ function ViewModel() {
         )
 
         underLyingRow?.classList.remove('over-down', 'over-up')
-        //
-        // const underLyingDocIndex = currentUnderLyingRow?.getAttribute("document-index")
-        // const underLyingCatIndex = currentUnderLyingRow?.parentElement.getAttribute("category-index")
-        const [underLyingDocIndex, underLyingCatIndex] = getIndexes(currentUnderLyingRow)
 
-        // console.log(underLyingDocIndex, underLyingCatIndex)
+        const [underLyingDocIndex, underLyingCatIndex] = getIndexes(currentUnderLyingRow)
 
         const cloneDocIndex = clone.getAttribute("document-index")
         const cloneCatIndex = clone.getAttribute("category-index")
@@ -98,17 +94,17 @@ function ViewModel() {
         if (underLyingRow) {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
 
-            if (fromCatIndex < 0 && toCatIndex < 0) {
-                self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]);
-            }
+            const areCategories = fromDocIndex < 0 && toDocIndex < 0
+            const bothHasCategory = !(fromCatIndex < 0 && toCatIndex < 0)
 
-            if (fromDocIndex < 0 && toDocIndex < 0){
-                self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]);
+            switch (true){
+                case !bothHasCategory: self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); break;
+                case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]);
             }
 
             let fromDocument
 
-            if (fromCatIndex < 0 && 0 <= fromDocIndex ) {
+            if (fromCatIndex < 0 && 0 <= fromDocIndex) {
                 fromDocument = self.documents.splice(fromDocIndex, 1)[0]
             }
 
@@ -118,7 +114,7 @@ function ViewModel() {
                 self.categories().at(fromCatIndex).documents(documents)
             }
 
-            if ( toCatIndex < 0 && 0 <= toDocIndex ) {
+            if (toCatIndex < 0 && 0 <= toDocIndex) {
                 self.documents.splice(toDocIndex, 0, fromDocument)
             }
 
