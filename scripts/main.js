@@ -67,6 +67,8 @@ function ViewModel() {
         )
 
         underLyingRow?.classList.remove('over-down', 'over-up')
+        console.log(underLyingRow?.parentElement.id)
+
 
         if (currentUnderLyingRow?.id < clone.id.split("-")[0]) {
             currentUnderLyingRow?.classList.add('over-down')
