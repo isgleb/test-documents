@@ -19,11 +19,9 @@ function ViewModel() {
         return !!this.searchValue();
     }, this);
 
-    self.clearSearch = function () {
-        this.searchValue("")
-    }
+    self.clearSearch = () => this.searchValue("")
 
-    self.openList = function (parent){
+    self.openList = (parent) => {
         const isOpenNow = parent.isOpen()
         parent.isOpen(!isOpenNow)
     }
@@ -32,12 +30,8 @@ function ViewModel() {
     let underLyingRow = null;
     let positionCorrection = {x: null, y: null}
 
-    self.mouseOverRow = function(data, e) {
-        // console.log(data) //todo it works
-    }
+    self.dragClick = (data, e) => {
 
-    self.dragClick = function(data, e) {
-        
         const rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
         const rightMargin = Number(window.getComputedStyle(e.currentTarget.parentElement).marginRight.replace("px",""))
 
@@ -66,7 +60,6 @@ function ViewModel() {
         const currentUnderLyingRow = underlyingElements.find(
             el => ( el.parentElement?.classList.contains("document-list") )
         )
-
 
         underLyingRow?.classList.remove('over-down', 'over-up')
         if (currentUnderLyingRow?.id < clone.id.split("-")[0]) {
