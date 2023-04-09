@@ -28,14 +28,14 @@
             </div>
         </div>
         <ul data-bind="foreach: categories" class="category-list">
-            <li class="category-row" data-bind="attr: { 'category-index': $index}">
-                <div class="row" data-bind="css: { 'first-row': $index() === 0 }">
-                    <div class="document-content row-data-block">
+            <li>
+                <div class="category-row row" data-bind="attr: { 'category-index': $index}, css: { 'first-row': $index() === 0 }">
+                    <div class="row-content row-data-block">
                         <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': $parent.isOpen}"/>
                         <span data-bind="text: name" class="category-name"></span>
                         <span data-bind="text: comment" class="comment"></span>
                     </div>
-                    <div class="document-content">
+                    <div class="row-content">
                         <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                         <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
                         <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: {mousedown: $parent.dragClick}"/>
@@ -43,36 +43,38 @@
                 </div>
                 <div data-bind="if: isOpen">
                     <ul data-bind="foreach: documents, attr: { 'category-index': $index() }" class="document-list document-ul">
-                        <li class="document-row document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
-                            <span class="document-content row-data-block">
-<!--                                <span data-bind="text: category.name" class="control-button document-name"></span>-->
-                                <span data-bind="text: name" class="control-button document-name"></span>
-                                <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
-                                <span data-bind="text: comment" class="control-button comment"></span>
-                            </span>
-                            <span class="document-content" >
-                                <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
-                                <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                                <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $root.dragClick}" class="control-button pointer"/>
-                            </span>
+                        <li>
+                            <div class="document-row row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
+                                <span class="row-content row-data-block">
+                                    <span data-bind="text: name" class="control-button document-name"></span>
+                                    <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
+                                    <span data-bind="text: comment" class="control-button comment"></span>
+                                </span>
+                                <span class="row-content">
+                                    <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
+                                    <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                                    <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $root.dragClick}" class="control-button pointer"/>
+                                </span>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </li>
         </ul>
-
         <ul data-bind="foreach: documents" category-index="-1" class="document-list">
-            <li class="document-row document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
-                <span class="document-content row-data-block">
-                    <span data-bind="text: name" class="control-button document-name"></span>
-                    <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
-                    <span data-bind="text: comment" class="control-button comment"></span>
-                </span>
-                <span class="document-content" >
-                    <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
-                    <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
-                    <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>
-                </span>
+            <li>
+                <div class="document-row row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
+                    <span class="row-content row-data-block">
+                        <span data-bind="text: name" class="control-button document-name"></span>
+                        <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
+                        <span data-bind="text: comment" class="control-button comment"></span>
+                    </span>
+                    <span class="row-content" >
+                        <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
+                        <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                        <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>
+                    </span>
+                </div>
             </li>
         </ul>
     </div>

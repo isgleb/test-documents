@@ -6,11 +6,7 @@
     height: 35px;
 }
 
-.document-content{
-    display: flex;
-    gap: 14px;
-    margin-right: 14px;
-}
+
 .document-name{
     font-family: Fira Sans;
     font-style: normal;
@@ -26,7 +22,6 @@
     font-size: 11px;
     line-height: 108%;
     /* identical to box height, or 12px */
-
 
     color: #FF238D;
 }

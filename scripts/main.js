@@ -6,7 +6,7 @@ function ViewModel() {
 
     self.categories = ko.observableArray(
         categories.map(cat => {
-            cat.isOpen = ko.observable(true);
+            cat.isOpen = ko.observable(false);
             cat.documents = ko.observable(cat.documents)
             return cat
         })
@@ -49,6 +49,8 @@ function ViewModel() {
         clone.style.left= `${e.clientX + positionCorrection.x}px`;
         clone.style.top = `${e.clientY + positionCorrection.y}px`;
 
+        console.log(clone.classList)
+
         document.body.appendChild(clone);
 
         window.onmousemove = handleDragging;
@@ -62,6 +64,8 @@ function ViewModel() {
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
 
         const rowClass = e.target?.parentElement.parentElement.classList[0]
+
+        console.log(rowClass)
 
         const currentUnderLyingRow = underlyingElements.find(
             el => ( el?.classList.contains(rowClass) && !el?.classList.contains("dragged-row") )
