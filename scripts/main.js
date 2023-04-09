@@ -98,6 +98,14 @@ function ViewModel() {
         if (underLyingRow) {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
 
+            if (fromCatIndex < 0 && toCatIndex < 0) {
+                self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]);
+            }
+
+            if (fromDocIndex < 0 && toDocIndex < 0){
+                self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]);
+            }
+
             let fromDocument
 
             if (fromCatIndex < 0 && 0 <= fromDocIndex ) {
@@ -119,8 +127,6 @@ function ViewModel() {
                 documents.splice(toDocIndex, 0, fromDocument)
                 self.categories().at(fromCatIndex).documents(documents)
             }
-
-            console.log(fromDocument)
         }
     }
 
