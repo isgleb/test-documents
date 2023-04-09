@@ -43,9 +43,9 @@
                 </div>
                 <div data-bind="if: isOpen">
                     <ul data-bind="foreach: documents, attr: { 'category-index': $index() }" class="document-list document-ul">
-                        <li class="document-row document row" data-bind="attr: { id: $index() + '-' + category.name }, css: { 'first-row': $index() === 0 }">
+                        <li class="document-row document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
                             <span class="document-content row-data-block">
-                                <span data-bind="text: category.name" class="control-button document-name"></span>
+<!--                                <span data-bind="text: category.name" class="control-button document-name"></span>-->
                                 <span data-bind="text: name" class="control-button document-name"></span>
                                 <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
                                 <span data-bind="text: comment" class="control-button comment"></span>

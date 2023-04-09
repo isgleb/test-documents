@@ -62,7 +62,7 @@ function ViewModel() {
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
 
         const rowClass = e.target?.parentElement.parentElement.classList[0]
-        console.log(e.target?.parentElement.parentElement.classList)
+
         const currentUnderLyingRow = underlyingElements.find(
             el => ( el?.classList.contains(rowClass) && !el?.classList.contains("dragged-row") )
         )
