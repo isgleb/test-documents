@@ -90,36 +90,48 @@ function ViewModel() {
         const [fromDocIndex, fromCatIndex] = getIndexes(clone)
         clone.remove()
         underLyingRow?.classList.remove('over-down', 'over-up')
+        // debugger
 
         if (underLyingRow) {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
 
+            console.log()
+
             const areCategories = fromDocIndex < 0 && toDocIndex < 0
             const fromHasCategory = 0 <= fromCatIndex
             const toHasCategory = 0 <= toCatIndex
-            const bothHasCategory = fromHasCategory && toHasCategory
 
-            switch (true){
-                case !bothHasCategory: self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
+
+            console.log(fromHasCategory)
+            console.log(toHasCategory)
+
+
+            // debugger
+            switch (true) {
                 case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]); return;
+                case (fromHasCategory && toHasCategory): self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
             }
+
 
             let fromDocument
 
             if (fromHasCategory) {
+                console.log("fromHasCategory")
                 const documents = self.categories().at(fromCatIndex).documents()
                 fromDocument = documents.splice(fromDocIndex, 1)[0]
                 self.categories().at(fromCatIndex).documents(documents)
             } else {
+                console.log("fromNotHasCategory")
                 fromDocument = self.documents.splice(fromDocIndex, 1)[0]
             }
 
             if (toHasCategory) {
+                console.log("toHasCategory")
                 const documents = self.categories().at(toCatIndex).documents()
                 documents.splice(toDocIndex, 0, fromDocument)
                 self.categories().at(fromCatIndex).documents(documents)
-                self.documents.splice(toDocIndex, 0, fromDocument)
             } else {
+                console.log("toNotHasCategory")
                 self.documents.splice(toDocIndex, 0, fromDocument)
             }
         }
@@ -130,7 +142,7 @@ function ViewModel() {
         const catIndex = rowElement?.getAttribute("category-index") ||
             rowElement?.parentElement.parentElement.getAttribute('category-index');
 
-        return [docIndex, Number(catIndex)]
+        return [Number(docIndex), Number(catIndex)]
     }
 }
 
