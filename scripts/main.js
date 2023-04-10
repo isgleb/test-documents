@@ -88,6 +88,7 @@ function ViewModel() {
         const cloneDocIndex = clone.getAttribute("document-index")
         const cloneCatIndex = clone.getAttribute("category-index")
 
+        //todo bug if docs between different categories wrong border
         let cssClass
         if (cloneDocIndex >= 0) {
             cssClass = underLyingDocIndex < cloneDocIndex ? 'over-down' : 'over-up'
@@ -114,7 +115,8 @@ function ViewModel() {
             const toHasCategory = 0 <= toCatIndex
 
             //todo if out of bounds document add to not categorised
-            //todo docs between categories
+            //todo bug docs between categories
+            // todo bug  docs inside category
 
             console.log(fromHasCategory)
             console.log(toHasCategory)
