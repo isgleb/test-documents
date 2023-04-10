@@ -74,15 +74,18 @@ function ViewModel() {
     }
 
     self.deleteDoc = (data, e) => {
-        console.log("deleteDoc")
+        const [documentIndex, categoryIndex] = getIndexes(e.target.parentElement.parentElement)
+        self.categories().at(categoryIndex).documents.splice(documentIndex, 1)
     }
 
     self.deleteNoCatDoc = (data, e) => {
-        console.log("deleteNoCatDoc")
+        const documentIndex = getIndexes(e.target.parentElement.parentElement)[0]
+        self.documents.splice(documentIndex, 1)
     }
 
     self.deleteCat = (data, e) => {
-        console.log("deleteCat")
+        const categoryIndex = getIndexes(e.target.parentElement.parentElement)[1]
+        self.categories.splice(categoryIndex, 1)
     }
 
     self.openList = (parent) => {
