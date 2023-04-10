@@ -4,7 +4,6 @@ const requiredStr = "Обязательный"
 function ViewModel() {
     const self = this;
 
-
     self.categories = ko.observableArray(
         categories.map(cat => {
             cat.isOpen = ko.observable(true);
@@ -25,18 +24,35 @@ function ViewModel() {
     );
 
     self.search = (data, e) => {
-        const stringValue = data.searchValue()
+        const searchValue = data.searchValue()
 
-        if(0 < stringValue.length) {
+        if(0 < searchValue.length) {
             self.documents().forEach(doc => {
-                const showDocument = doc.name.toLowerCase().includes(stringValue.toLowerCase())
+                const showDocument = doc.name.toLowerCase().includes(searchValue.toLowerCase())
                 doc.show(showDocument)
             })
+
+            self.categories().forEach(cat => {
+                let showCategory = false
+                cat.documents().forEach(doc => {
+                    const showDocument = doc.name.toLowerCase().includes(searchValue.toLowerCase())
+                    doc.show(showDocument)
+                    showCategory = showDocument ? true : showCategory
+                })
+                cat.show(showCategory)
+            })
+
+
         } else {
             self.documents().forEach( doc => doc.show(true) )
+
+            self.categories().forEach(cat => {
+                cat.show(true)
+                cat.documents().forEach(doc => doc.show(true))
+            })
         }
     }
-    
+
     self.searchValue = ko.observable("");
 
     self.showClearIcon = ko.computed(() => {
@@ -45,6 +61,10 @@ function ViewModel() {
 
     self.clearSearch = () => {
         self.documents().forEach( doc => doc.show(true) )
+        self.categories().forEach(cat => {
+            cat.show(true)
+            cat.documents().forEach( doc => doc.show(true) )
+        })
         this.searchValue("")
     }
 

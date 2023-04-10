@@ -13,16 +13,16 @@ const categories = [
   {
     "name": "Обязательные для трудоустройства",
     "documents": [
-        {"name":"fsgs", "required": false, "comment": "Для всех"},
-        {"name":"fsgs", "required": true, "comment": "Для всех"}
+        {"name":"Парт. билет", "required": false, "comment": ""},
+        {"name":"Рентген черепной коробки", "required": true, "comment": "Для всех"}
     ],
     "comment": "Для всех"
   },
 
   { "name": "Специальные",
     "documents": [
-        {"name":"fsgs", "required": true, "comment": "Для всех"},
-        {"name":"fsgs", "required": true, "comment": "Для всех"}
+        {"name":"Справка о погашенной судимости", "required": true, "comment": "Для всех"},
+        {"name":"Диплом ветеринара", "required": true, "comment": "Для всех"}
     ],
     "comment": "Для всех"
   }
