@@ -35,7 +35,7 @@
                         <span data-bind="text: name" class="category-name"></span>
                         <span data-bind="text: comment" class="comment"></span>
                     </div>
-                    <div class="row-content">
+                    <div class="controls-block">
                         <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                         <img src="assets/icons/deleteBucket.svg" class="control-button pointer" data-bind="click: $root.deleteCat"/>
                         <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: { mousedown: $parent.dragClick }"/>
@@ -46,11 +46,11 @@
                         <li data-bind="if: show">
                             <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
                                 <span class="row-content data-block">
-                                    <span data-bind="text: name" class="control-button document-name"></span>
-                                    <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
-                                    <span data-bind="text: comment" class="control-button comment"></span>
+                                    <span data-bind="text: name" class="document-name"></span>
+                                    <span data-bind="text: required ? requiredStr : ''" class="document-required"></span>
+                                    <span data-bind="text: comment" class="comment"></span>
                                 </span>
-                                <span class="row-content">
+                                <span class="controls-block">
                                     <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                                     <img src="assets/icons/deleteBucket.svg" data-bind="click: $root.deleteDoc" class="control-button pointer"/>
                                     <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $root.dragClick}" class="control-button pointer"/>
@@ -65,11 +65,11 @@
             <li data-bind="if: show">
                 <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
                     <div class="row-content data-block">
-                        <span data-bind="text: name" class="control-button document-name"></span>
-                        <span data-bind="text: required ? requiredStr : ''" class="control-button document-required"></span>
-                        <span data-bind="text: comment" class="control-button comment"></span>
+                        <span data-bind="text: name" class="document-name"></span>
+                        <span data-bind="text: required ? requiredStr : ''" class="document-required"></span>
+                        <span data-bind="text: comment" class="comment"></span>
                     </div>
-                    <div class="row-content" >
+                    <div class="controls-block" >
                         <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
                         <img src="assets/icons/deleteBucket.svg" data-bind="click: $root.deleteNoCatDoc" class="control-button pointer"/>
                         <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>

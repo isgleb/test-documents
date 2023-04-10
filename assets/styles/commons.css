@@ -78,10 +78,17 @@ ul{
     border-bottom: 2px solid red;
 }
 
+.controls-block{
+    display: flex;
+    gap: 2px;
+    margin-right: 6px;
+}
+
 .control-button {
     height: 14px;
     margin: auto;
     line-height: 12px;
+    padding: 8px;
 }
 
 .pointer{

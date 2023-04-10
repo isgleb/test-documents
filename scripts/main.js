@@ -90,8 +90,8 @@ function ViewModel() {
         parent.isOpen(!isOpenNow)
     }
 
-    let clone = null;
-    let underLyingRow = null;
+    let clone;
+    let underLyingRow;
     let positionCorrection = {x: null, y: null}
 
 
