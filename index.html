@@ -37,7 +37,7 @@
                     </div>
                     <div class="row-content">
                         <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
-                        <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                        <img src="assets/icons/deleteBucket.svg" class="control-button pointer" data-bind="click: $root.deleteCat"/>
                         <img src="assets/icons/moveArrows.svg" class="control-button pointer" data-bind="event: { mousedown: $parent.dragClick }"/>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                                 </span>
                                 <span class="row-content">
                                     <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
-                                    <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                                    <img src="assets/icons/deleteBucket.svg" data-bind="click: $root.deleteDoc" class="control-button pointer"/>
                                     <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $root.dragClick}" class="control-button pointer"/>
                                 </span>
                             </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="row-content" >
                         <img src="assets/icons/editPencil.svg" class="control-button pointer"/>
-                        <img src="assets/icons/deleteBucket.svg" class="control-button pointer"/>
+                        <img src="assets/icons/deleteBucket.svg" data-bind="click: $root.deleteNoCatDoc" class="control-button pointer"/>
                         <img src="assets/icons/moveArrows.svg" data-bind="event: {mousedown: $parent.dragClick}" class="control-button pointer"/>
                     </div>
                 </div>

@@ -73,6 +73,18 @@ function ViewModel() {
         this.searchValue("")
     }
 
+    self.deleteDoc = (data, e) => {
+        console.log("deleteDoc")
+    }
+
+    self.deleteNoCatDoc = (data, e) => {
+        console.log("deleteNoCatDoc")
+    }
+
+    self.deleteCat = (data, e) => {
+        console.log("deleteCat")
+    }
+
     self.openList = (parent) => {
         const isOpenNow = parent.isOpen()
         parent.isOpen(!isOpenNow)
@@ -128,63 +140,66 @@ function ViewModel() {
 
         //todo bug if docs between different categories wrong border
         let cssClass
-        if (cloneDocIndex >= 0) {
-            cssClass = underLyingDocIndex < cloneDocIndex ? overDownClass : overUPClass
-        } else {
+
+        const areCategories = cloneDocIndex < 0
+
+        if (areCategories) {
+            console.log("if", cloneDocIndex)
             cssClass = underLyingCatIndex < cloneCatIndex ? overDownClass : overUPClass
+
+        } else {
+            console.log("else", cloneDocIndex)
+            cssClass = (underLyingDocIndex < cloneDocIndex) ? overDownClass : overUPClass
         }
         currentUnderLyingRow?.classList.add(cssClass)
         underLyingRow = currentUnderLyingRow
     }
 
     function handleMouseUp(){
-        // debugger
+
         window.onmousemove = null
-        const [fromDocIndex, fromCatIndex] = getIndexes(clone)
-        clone.remove()
+        window.onmouseup = null
         underLyingRow?.classList.remove(overDownClass, overUPClass)
+        clone.remove()
 
         if (underLyingRow) {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
+            const [fromDocIndex, fromCatIndex] = getIndexes(clone)
             delete underLyingRow
 
             const areCategories = fromDocIndex < 0 && toDocIndex < 0
+            const bothHasSameCategory = fromCatIndex === toCatIndex && 0 <= fromCatIndex
+            const bothHasNoCategory = fromCatIndex < 0 && toCatIndex < 0
             const fromHasCategory = 0 <= fromCatIndex
             const toHasCategory = 0 <= toCatIndex
 
-            //todo if out of bounds document add to not categorised
-            //todo bug docs between categories
-            // todo bug  docs inside category
-
-            console.log(fromHasCategory)
-            console.log(toHasCategory)
-
-
             switch (true) {
                 case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]); return;
-                case (fromHasCategory && toHasCategory): self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
-            }
+                case bothHasNoCategory: self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
+                case bothHasSameCategory: {
+                    self.categories()[fromCatIndex]
+                        .documents.splice(toDocIndex, 0, self.categories()[fromCatIndex]
+                            .documents.splice(fromDocIndex, 1)[0]); return;
+                }
+                default: {
+                    let fromDocument
 
-            let fromDocument
+                    if (fromHasCategory) {
+                        const documents = self.categories().at(fromCatIndex).documents()
+                        fromDocument = documents.splice(fromDocIndex, 1)[0]
+                        self.categories().at(fromCatIndex).documents(documents)
+                    } else {
+                        fromDocument = self.documents.splice(fromDocIndex, 1)[0]
+                    }
 
-            if (fromHasCategory) {
-                console.log("fromHasCategory")
-                const documents = self.categories().at(fromCatIndex).documents()
-                fromDocument = documents.splice(fromDocIndex, 1)[0]
-                self.categories().at(fromCatIndex).documents(documents)
-            } else {
-                console.log("fromNotHasCategory")
-                fromDocument = self.documents.splice(fromDocIndex, 1)[0]
-            }
-
-            if (toHasCategory) {
-                console.log("toHasCategory")
-                const documents = self.categories().at(toCatIndex).documents()
-                documents.splice(toDocIndex, 0, fromDocument)
-                self.categories().at(fromCatIndex).documents(documents)
-            } else {
-                console.log("toNotHasCategory")
-                self.documents.splice(toDocIndex, 0, fromDocument)
+                    if (toHasCategory) {
+                        const documents = self.categories().at(toCatIndex).documents()
+                        documents.splice(toDocIndex, 0, fromDocument)
+                        self.categories().at(toCatIndex).documents(documents)
+                    } else {
+                        self.documents.splice(toDocIndex, 0, fromDocument)
+                    }
+                }
             }
         }
     }
@@ -192,7 +207,7 @@ function ViewModel() {
     function getIndexes(rowElement){
         const docIndex = rowElement?.getAttribute(docIndexAttr) || -1;
         const catIndex = rowElement?.getAttribute(catIndexAttr) ||
-            rowElement?.parentElement.parentElement.getAttribute(catIndexAttr);
+            rowElement?.parentElement?.parentElement?.getAttribute(catIndexAttr);
 
         return [Number(docIndex), Number(catIndex)]
     }
