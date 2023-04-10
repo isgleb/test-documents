@@ -24,16 +24,29 @@ function ViewModel() {
         })
     );
 
+    self.search = (data, e) => {
+        const stringValue = data.searchValue()
 
-
-
+        if(0 < stringValue.length) {
+            self.documents().forEach(doc => {
+                const showDocument = doc.name.toLowerCase().includes(stringValue.toLowerCase())
+                doc.show(showDocument)
+            })
+        } else {
+            self.documents().forEach( doc => doc.show(true) )
+        }
+    }
+    
     self.searchValue = ko.observable("");
 
     self.showClearIcon = ko.computed(() => {
         return !!this.searchValue();
     }, this);
 
-    self.clearSearch = () => this.searchValue("")
+    self.clearSearch = () => {
+        self.documents().forEach( doc => doc.show(true) )
+        this.searchValue("")
+    }
 
     self.openList = (parent) => {
         const isOpenNow = parent.isOpen()

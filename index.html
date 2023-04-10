@@ -21,7 +21,7 @@
         <div class="search">
             <div class="search-input-wrapper">
                 <img src="assets/icons/searchLoupe.svg"/>
-                <input data-bind="value: searchValue" class="search-input">
+                <input data-bind="textInput: searchValue, event: {input: search}" class="search-input">
             </div>
             <div data-bind="if: showClearIcon">
                 <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
