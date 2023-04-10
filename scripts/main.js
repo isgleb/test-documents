@@ -17,7 +17,7 @@ function ViewModel() {
     );
 
     self.documents = ko.observableArray(
-        documents.map(doc => {
+        documents.map( doc => {
             doc.show = ko.observable(true)
             return doc;
         })
@@ -27,14 +27,14 @@ function ViewModel() {
         const searchValue = data.searchValue()
 
         if(0 < searchValue.length) {
-            self.documents().forEach(doc => {
+            self.documents().forEach( doc => {
                 const showDocument = doc.name.toLowerCase().includes(searchValue.toLowerCase())
                 doc.show(showDocument)
             })
 
             self.categories().forEach(cat => {
                 let showCategory = false
-                cat.documents().forEach(doc => {
+                cat.documents().forEach( doc => {
                     const showDocument = doc.name.toLowerCase().includes(searchValue.toLowerCase())
                     doc.show(showDocument)
                     if (showDocument) showCategory = true
@@ -45,18 +45,16 @@ function ViewModel() {
         } else {
             self.documents().forEach( doc => doc.show(true) )
 
-            self.categories().forEach(cat => {
+            self.categories().forEach( cat => {
                 cat.show(true)
-                cat.documents().forEach(doc => doc.show(true))
+                cat.documents().forEach( doc => doc.show(true) )
             })
         }
     }
 
     self.searchValue = ko.observable("");
 
-    self.showClearIcon = ko.computed(() => {
-        return !!this.searchValue();
-    }, this);
+    self.showClearIcon = ko.computed( () => !!this.searchValue() );
 
     self.clearSearch = () => {
         self.documents().forEach( doc => doc.show(true) )
