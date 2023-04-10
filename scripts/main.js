@@ -4,6 +4,14 @@ const requiredStr = "Обязательный"
 function ViewModel() {
     const self = this;
 
+    const docIndexAttr = 'document-index'
+    const catIndexAttr = 'category-index'
+
+    const overDownClass = 'over-down'
+    const overUPClass = 'over-up'
+
+    const draggedClass = 'dragged-row'
+
     self.categories = ko.observableArray(
         categories.map(cat => {
             cat.isOpen = ko.observable(true);
@@ -87,10 +95,10 @@ function ViewModel() {
 
         clone = e.target.parentElement.parentElement.cloneNode(true)
 
-        clone.setAttribute('category-index', categoryIndex)
-        clone.setAttribute('document-index', documentIndex)
+        clone.setAttribute(catIndexAttr, categoryIndex)
+        clone.setAttribute(docIndexAttr, documentIndex)
 
-        clone.classList.add('dragged-row')
+        clone.classList.add(draggedClass)
         clone.style.width = `${rowWidth}px`
         clone.style.left= `${e.clientX + positionCorrection.x}px`;
         clone.style.top = `${e.clientY + positionCorrection.y}px`;
@@ -108,22 +116,22 @@ function ViewModel() {
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
 
         const currentUnderLyingRow = underlyingElements.find(
-            el => ( el?.classList.contains(clone.classList[0]) && !el?.classList.contains("dragged-row") )
+            el => ( el?.classList.contains(clone.classList[0]) && !el?.classList.contains(draggedClass) )
         )
 
-        underLyingRow?.classList.remove('over-down', 'over-up')
+        underLyingRow?.classList.remove(overDownClass, overUPClass)
 
         const [underLyingDocIndex, underLyingCatIndex] = getIndexes(currentUnderLyingRow)
 
-        const cloneDocIndex = clone.getAttribute("document-index")
-        const cloneCatIndex = clone.getAttribute("category-index")
+        const cloneDocIndex = clone.getAttribute(docIndexAttr)
+        const cloneCatIndex = clone.getAttribute(catIndexAttr)
 
         //todo bug if docs between different categories wrong border
         let cssClass
         if (cloneDocIndex >= 0) {
-            cssClass = underLyingDocIndex < cloneDocIndex ? 'over-down' : 'over-up'
+            cssClass = underLyingDocIndex < cloneDocIndex ? overDownClass : overUPClass
         } else {
-            cssClass = underLyingCatIndex < cloneCatIndex ? 'over-down' : 'over-up'
+            cssClass = underLyingCatIndex < cloneCatIndex ? overDownClass : overUPClass
         }
         currentUnderLyingRow?.classList.add(cssClass)
         underLyingRow = currentUnderLyingRow
@@ -134,7 +142,7 @@ function ViewModel() {
         window.onmousemove = null
         const [fromDocIndex, fromCatIndex] = getIndexes(clone)
         clone.remove()
-        underLyingRow?.classList.remove('over-down', 'over-up')
+        underLyingRow?.classList.remove(overDownClass, overUPClass)
 
         if (underLyingRow) {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
@@ -182,9 +190,9 @@ function ViewModel() {
     }
 
     function getIndexes(rowElement){
-        const docIndex = rowElement?.getAttribute("document-index") || -1;
-        const catIndex = rowElement?.getAttribute("category-index") ||
-            rowElement?.parentElement.parentElement.getAttribute('category-index');
+        const docIndex = rowElement?.getAttribute(docIndexAttr) || -1;
+        const catIndex = rowElement?.getAttribute(catIndexAttr) ||
+            rowElement?.parentElement.parentElement.getAttribute(catIndexAttr);
 
         return [Number(docIndex), Number(catIndex)]
     }
