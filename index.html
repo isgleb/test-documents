@@ -21,13 +21,11 @@
 <body>
     <div class="wrapper">
         <h1 data-bind="text: header"></h1>
-        <div class="search">
+        <div class="search" data-bind="css: {'active-search': searchValue}">
             <div class="search-input-wrapper">
-                <img src="assets/icons/searchLoupe.svg"/>
+                <img src="assets/icons/searchLoupe.svg" class="search-icon"/>
                 <input data-bind="textInput: searchValue, event: {input: search}" class="search-input">
-            </div>
-            <div data-bind="if: showClearIcon">
-                <img data-bind="click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
+                <img data-bind="if: showClearIcon, click: clearSearch" src="assets/icons/deleteCross.svg" class="close-icon pointer"/>
             </div>
         </div>
         <ul class="category-list" data-bind="foreach: categories">
