@@ -37,12 +37,11 @@ function ViewModel() {
                 cat.documents().forEach(doc => {
                     const showDocument = doc.name.toLowerCase().includes(searchValue.toLowerCase())
                     doc.show(showDocument)
-                    showCategory = showDocument ? true : showCategory
+                    if (showDocument) showCategory = true
                 })
+                showCategory = showCategory || cat.name.toLowerCase().includes(searchValue.toLowerCase())
                 cat.show(showCategory)
             })
-
-
         } else {
             self.documents().forEach( doc => doc.show(true) )
 
