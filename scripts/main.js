@@ -1,5 +1,5 @@
 
-// import ko from "knockout"
+// import ko from "../bower.json"
 
 const requiredStr = "Обязательный"
 
