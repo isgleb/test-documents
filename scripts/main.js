@@ -18,9 +18,6 @@ function ViewModel() {
                 doc.show = ko.observable(true)
                 return doc;
             }))
-            cat.isEmpty = ko.computed(() => {
-                return cat.documents().length <= 0
-            })
             return cat;
         })
     );
@@ -80,7 +77,7 @@ function ViewModel() {
         $(e.target.parentElement.parentElement).slideUp( 150 , () => {
             self.categories().at(categoryIndex).documents.splice(documentIndex, 1)
 
-            if (self.categories().at(categoryIndex).isEmpty() ) {
+            if (self.categories().at(categoryIndex).documents().length === 0) {
                 self.categories().at(categoryIndex).isOpen(false)
             }
         })

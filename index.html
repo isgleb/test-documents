@@ -32,7 +32,7 @@
             <li data-bind="if: show">
                 <div class="category row" data-bind="attr: { 'category-index': $index}, css: { 'first-row': $index() === 0 }">
                     <div class="row-content data-block">
-                        <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen, 'hidden': isEmpty}"/>
+                        <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                         <span data-bind="text: name" class="category-name"></span>
                         <span data-bind="text: comment" class="comment"></span>
                     </div>
