@@ -1,8 +1,4 @@
 
-// import ko from "../bower.json"
-
-const requiredStr = "Обязательный"
-
 function ViewModel() {
 
     const self = this;
@@ -12,7 +8,6 @@ function ViewModel() {
 
     const overDownClass = 'over-down'
     const overUPClass = 'over-up'
-
     const draggedClass = 'dragged-row'
 
     self.categories = ko.observableArray(
@@ -34,23 +29,24 @@ function ViewModel() {
         })
     );
 
-    self.search = (data, e) => {
+    self.search = (data) => {
         const searchValue = data.searchValue()
 
-        if(0 < searchValue.length) {
+        if (0 < searchValue.length) {
             self.documents().forEach( doc => {
                 const showDocument = doc.name.toLowerCase().includes(searchValue.toLowerCase())
                 doc.show(showDocument)
             })
 
             self.categories().forEach(cat => {
-                let showCategory = false
+                let hasSearchedDoc = false
                 cat.documents().forEach( doc => {
                     const showDocument = doc.name.toLowerCase().includes(searchValue.toLowerCase())
                     doc.show(showDocument)
-                    if (showDocument) showCategory = true
+                    if (showDocument) hasSearchedDoc = true
                 })
-                showCategory = showCategory || cat.name.toLowerCase().includes(searchValue.toLowerCase())
+                cat.isOpen(hasSearchedDoc)
+                const showCategory = hasSearchedDoc || cat.name.toLowerCase().includes(searchValue.toLowerCase())
                 cat.show(showCategory)
             })
         } else {
@@ -114,7 +110,6 @@ function ViewModel() {
     let clone;
     let underLyingRow;
     let positionCorrection = {x: null, y: null}
-
 
     self.dragClick = (data, e) => {
 
@@ -188,7 +183,7 @@ function ViewModel() {
 
         if (underLyingRow) {
             [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
-            delete this.underLyingRow
+            underLyingRow = null
         } else {
             if (fromDocIndex < 0) return;
             toDocIndex = self.documents().length
@@ -241,7 +236,6 @@ function ViewModel() {
         const docIndex = rowElement?.getAttribute(docIndexAttr) || -1;
         const catIndex = rowElement?.getAttribute(catIndexAttr) ||
             rowElement?.parentElement?.parentElement?.getAttribute(catIndexAttr);
-
         return [Number(docIndex), Number(catIndex)]
     }
 }

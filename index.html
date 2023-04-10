@@ -50,7 +50,7 @@
                             <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
                                 <span class="row-content data-block">
                                     <span data-bind="text: name" class="document-name"></span>
-                                    <span data-bind="text: required ? requiredStr : ''" class="document-required"></span>
+                                    <span data-bind="text: required ? 'Обязательный' : ''" class="document-required"></span>
                                     <span data-bind="text: comment" class="comment"></span>
                                 </span>
                                 <span class="controls-block">
@@ -69,7 +69,7 @@
                 <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
                     <div class="row-content data-block">
                         <span data-bind="text: name" class="document-name"></span>
-                        <span data-bind="text: required ? requiredStr : ''" class="document-required"></span>
+                        <span data-bind="text: required ? 'Обязательный' : ''" class="document-required"></span>
                         <span data-bind="text: comment" class="comment"></span>
                     </div>
                     <div class="controls-block" >
