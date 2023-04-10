@@ -162,43 +162,55 @@ function ViewModel() {
         underLyingRow?.classList.remove(overDownClass, overUPClass)
         clone.remove()
 
+        const [fromDocIndex, fromCatIndex] = getIndexes(clone)
+        let toDocIndex, toCatIndex
+
         if (underLyingRow) {
-            const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
-            const [fromDocIndex, fromCatIndex] = getIndexes(clone)
+            [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
             delete underLyingRow
+        } else {
+            if (fromDocIndex < 0) return;
+            toDocIndex = self.documents().length
+            toCatIndex = -1
+        }
 
-            const areCategories = fromDocIndex < 0 && toDocIndex < 0
-            const bothHasSameCategory = fromCatIndex === toCatIndex && 0 <= fromCatIndex
-            const bothHasNoCategory = fromCatIndex < 0 && toCatIndex < 0
-            const fromHasCategory = 0 <= fromCatIndex
-            const toHasCategory = 0 <= toCatIndex
+        const areCategories = fromDocIndex < 0 && toDocIndex < 0
+        const bothHasSameCategory = fromCatIndex === toCatIndex && 0 <= fromCatIndex
+        const bothHasNoCategory = fromCatIndex < 0 && toCatIndex < 0
+        const fromHasCategory = 0 <= fromCatIndex
+        const toHasCategory = 0 <= toCatIndex
+        const documentToCategory = 0 <= fromDocIndex && toDocIndex < 0
 
-            switch (true) {
-                case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]); return;
-                case bothHasNoCategory: self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
-                case bothHasSameCategory: {
-                    self.categories()[fromCatIndex]
-                        .documents.splice(toDocIndex, 0, self.categories()[fromCatIndex]
-                            .documents.splice(fromDocIndex, 1)[0]); return;
+        switch (true) {
+            case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]); return;
+            case bothHasNoCategory: self.documents.splice(toDocIndex, 0, self.documents.splice(fromDocIndex, 1)[0]); return;
+            case bothHasSameCategory: {
+                self.categories()[fromCatIndex]
+                    .documents.splice(toDocIndex, 0, self.categories()[fromCatIndex]
+                        .documents.splice(fromDocIndex, 1)[0]); return;
+            }
+            default: {
+                let fromDocument
+
+                if (fromHasCategory) {
+                    const documents = self.categories().at(fromCatIndex).documents()
+                    fromDocument = documents.splice(fromDocIndex, 1)[0]
+                    self.categories().at(fromCatIndex).documents(documents)
+                } else {
+                    fromDocument = self.documents.splice(fromDocIndex, 1)[0]
                 }
-                default: {
-                    let fromDocument
 
-                    if (fromHasCategory) {
-                        const documents = self.categories().at(fromCatIndex).documents()
-                        fromDocument = documents.splice(fromDocIndex, 1)[0]
-                        self.categories().at(fromCatIndex).documents(documents)
-                    } else {
-                        fromDocument = self.documents.splice(fromDocIndex, 1)[0]
-                    }
+                if (documentToCategory) {
+                    self.categories().at(toCatIndex).documents.push(fromDocument)
+                    return;
+                }
 
-                    if (toHasCategory) {
-                        const documents = self.categories().at(toCatIndex).documents()
-                        documents.splice(toDocIndex, 0, fromDocument)
-                        self.categories().at(toCatIndex).documents(documents)
-                    } else {
-                        self.documents.splice(toDocIndex, 0, fromDocument)
-                    }
+                if (toHasCategory) {
+                    const documents = self.categories().at(toCatIndex).documents()
+                    documents.splice(toDocIndex, 0, fromDocument)
+                    self.categories().at(toCatIndex).documents(documents)
+                } else {
+                    self.documents.splice(toDocIndex, 0, fromDocument)
                 }
             }
         }
