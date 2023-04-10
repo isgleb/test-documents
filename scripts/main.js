@@ -4,15 +4,41 @@ const requiredStr = "Обязательный"
 function ViewModel() {
     const self = this;
 
+    // self.categories = ko.observableArray(
+    //     categories.map(cat => {
+    //         cat.isOpen = ko.observable(true);
+    //         cat.documents = ko.observable(cat.documents)
+    //         return cat
+    //     })
+    // );
+    //
+    // self.documents = ko.observableArray(
+    //     documents.map(doc => {
+    //         doc.show = ko.observable(true)
+    //     })
+    // );
+
     self.categories = ko.observableArray(
         categories.map(cat => {
             cat.isOpen = ko.observable(true);
-            cat.documents = ko.observable(cat.documents)
-            return cat
+            doc.show = ko.observable(true)
+            cat.documents = ko.observableArray(cat.documents.map(doc => {
+                doc.show = ko.observable(true)
+                return doc;
+            }))
+            return cat;
         })
     );
 
-    self.documents = ko.observableArray(documents);
+    self.documents = ko.observableArray(
+        documents.map(doc => {
+            doc.show = ko.observable(true)
+            return doc;
+        })
+    );
+
+
+
 
     self.searchValue = ko.observable("");
 
