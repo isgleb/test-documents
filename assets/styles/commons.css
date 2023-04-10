@@ -1,3 +1,8 @@
+:root {
+    --row-border: 1px solid #DFE4EF;
+    --main-font: Fira Sans;
+}
+
 body {
     background-color: white;
     font-family: Fira Sans;
@@ -13,10 +18,6 @@ h1{
     line-height: 108%;
 }
 
-:root {
-    --row-border: 1px solid #DFE4EF;
-    --main-font: Fira Sans;
-}
 
 .wrapper {
     /*margin: 50px;*/
@@ -33,7 +34,6 @@ ul{
 
 .row{
     border: var(--row-border);
-    border-top: none;
     display: flex;
     justify-content: space-between;
     background-color: white;
@@ -70,13 +70,11 @@ ul{
     border-top: var(--row-border);
 }
 
-.over-down{
-    border-top: 2px solid red;
+.over-down,
+.over-up{
+    border-top: 5px solid #0066FF;
 }
 
-.over-up{
-    border-bottom: 2px solid red;
-}
 
 .controls-block{
     display: flex;

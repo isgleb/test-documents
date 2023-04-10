@@ -77,6 +77,10 @@ function ViewModel() {
         const [documentIndex, categoryIndex] = getIndexes(e.target.parentElement.parentElement)
         $(e.target.parentElement.parentElement).slideUp( 150 , () => {
             self.categories().at(categoryIndex).documents.splice(documentIndex, 1)
+
+            if (self.categories().at(categoryIndex).documents().length === 0) {
+                self.categories().at(categoryIndex).isOpen(false)
+            }
         })
     }
 
@@ -115,7 +119,7 @@ function ViewModel() {
         const rightMargin = Number(window.getComputedStyle(e.currentTarget.parentElement).marginRight.replace("px",""))
 
         positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
-        positionCorrection.y = - e.target.offsetHeight
+        positionCorrection.y = - e.target.offsetHeight // todo bug
 
         const [documentIndex, categoryIndex] = getIndexes(e.target.parentElement.parentElement)
 
@@ -159,7 +163,7 @@ function ViewModel() {
 
         if (areCategories) {
             console.log("if", cloneDocIndex)
-            cssClass = underLyingCatIndex < cloneCatIndex ? overDownClass : overUPClass
+            cssClass = underLyingCatIndex < cloneCatIndex ? overDownClass : overUPClass // todo bug when dragging to lower positioned Cat
 
         } else {
             console.log("else", cloneDocIndex)
