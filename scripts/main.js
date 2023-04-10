@@ -1,7 +1,10 @@
 
+// import ko from "knockout"
+
 const requiredStr = "Обязательный"
 
 function ViewModel() {
+
     const self = this;
 
     const docIndexAttr = 'document-index'
@@ -185,7 +188,7 @@ function ViewModel() {
 
         if (underLyingRow) {
             [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
-            delete underLyingRow
+            delete this.underLyingRow
         } else {
             if (fromDocIndex < 0) return;
             toDocIndex = self.documents().length
