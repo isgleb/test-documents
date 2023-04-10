@@ -80,17 +80,28 @@ function ViewModel() {
 
     self.deleteNoCatDoc = (data, e) => {
         const documentIndex = getIndexes(e.target.parentElement.parentElement)[0]
-        self.documents.splice(documentIndex, 1)
+        $(e.target.parentElement.parentElement).slideUp( 200 , () => {
+            self.documents.splice(documentIndex, 1)
+        });
     }
 
     self.deleteCat = (data, e) => {
         const categoryIndex = getIndexes(e.target.parentElement.parentElement)[1]
-        self.categories.splice(categoryIndex, 1)
+        $(e.target.parentElement.parentElement).slideUp( 200 , () => {
+            self.categories.splice(categoryIndex, 1)
+        })
     }
 
-    self.openList = (parent) => {
+    self.openList = (parent, e) => {
         const isOpenNow = parent.isOpen()
-        parent.isOpen(!isOpenNow)
+        if (isOpenNow) {
+            $(e.target.parentElement.parentElement.nextElementSibling).slideUp( 200 , () => {
+                parent.isOpen(!isOpenNow)
+            })
+        } else {
+            parent.isOpen(!isOpenNow)
+            $(e.target.parentElement.parentElement.nextElementSibling).slideDown( 200 )
+        }
     }
 
     let clone;
