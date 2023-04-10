@@ -18,6 +18,9 @@ function ViewModel() {
                 doc.show = ko.observable(true)
                 return doc;
             }))
+            cat.isEmpty = ko.computed(() => {
+                return cat.documents().length <= 0
+            })
             return cat;
         })
     );
