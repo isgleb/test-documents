@@ -9,14 +9,6 @@
     font-size: 15px;
 }
 
-/*.category-content{*/
-/*    padding: 12px;*/
-/*}*/
-
-.rotated{
-    transform: rotate(-180deg);
-}
-
 .tick-element{
     border: var(--row-border);
     border-radius: 50%;
@@ -25,4 +17,9 @@
     padding: 5px;
     margin: auto;
     transition: 0.15s linear;
+}
+
+.rotated {
+    fill: #FF238D;
+    transform: rotate(-180deg);
 }

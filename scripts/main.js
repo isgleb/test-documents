@@ -75,32 +75,32 @@ function ViewModel() {
 
     self.deleteDoc = (data, e) => {
         const [documentIndex, categoryIndex] = getIndexes(e.target.parentElement.parentElement)
-        self.categories().at(categoryIndex).documents.splice(documentIndex, 1)
+        $(e.target.parentElement.parentElement).slideUp( 150 , () => {
+            self.categories().at(categoryIndex).documents.splice(documentIndex, 1)
+        })
     }
 
     self.deleteNoCatDoc = (data, e) => {
         const documentIndex = getIndexes(e.target.parentElement.parentElement)[0]
-        $(e.target.parentElement.parentElement).slideUp( 200 , () => {
+        $(e.target.parentElement.parentElement).slideUp( 150 , () => {
             self.documents.splice(documentIndex, 1)
         });
     }
 
     self.deleteCat = (data, e) => {
         const categoryIndex = getIndexes(e.target.parentElement.parentElement)[1]
-        $(e.target.parentElement.parentElement).slideUp( 200 , () => {
-            self.categories.splice(categoryIndex, 1)
-        })
+        self.categories.splice(categoryIndex, 1)
     }
 
     self.openList = (parent, e) => {
         const isOpenNow = parent.isOpen()
         if (isOpenNow) {
-            $(e.target.parentElement.parentElement.nextElementSibling).slideUp( 200 , () => {
+            $(e.target.parentElement.parentElement.nextElementSibling).slideUp( 150 , () => {
                 parent.isOpen(!isOpenNow)
             })
         } else {
             parent.isOpen(!isOpenNow)
-            $(e.target.parentElement.parentElement.nextElementSibling).slideDown( 200 )
+            $(e.target.parentElement.parentElement.nextElementSibling).slideDown( 150 )
         }
     }
 
