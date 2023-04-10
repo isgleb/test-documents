@@ -4,24 +4,11 @@ const requiredStr = "Обязательный"
 function ViewModel() {
     const self = this;
 
-    // self.categories = ko.observableArray(
-    //     categories.map(cat => {
-    //         cat.isOpen = ko.observable(true);
-    //         cat.documents = ko.observable(cat.documents)
-    //         return cat
-    //     })
-    // );
-    //
-    // self.documents = ko.observableArray(
-    //     documents.map(doc => {
-    //         doc.show = ko.observable(true)
-    //     })
-    // );
 
     self.categories = ko.observableArray(
         categories.map(cat => {
             cat.isOpen = ko.observable(true);
-            doc.show = ko.observable(true)
+            cat.show = ko.observable(true)
             cat.documents = ko.observableArray(cat.documents.map(doc => {
                 doc.show = ko.observable(true)
                 return doc;
@@ -112,6 +99,7 @@ function ViewModel() {
     }
 
     function handleMouseUp(){
+        // debugger
         window.onmousemove = null
         const [fromDocIndex, fromCatIndex] = getIndexes(clone)
         clone.remove()
@@ -119,15 +107,18 @@ function ViewModel() {
 
         if (underLyingRow) {
             const [toDocIndex, toCatIndex] = getIndexes(underLyingRow)
+            delete underLyingRow
 
             const areCategories = fromDocIndex < 0 && toDocIndex < 0
             const fromHasCategory = 0 <= fromCatIndex
             const toHasCategory = 0 <= toCatIndex
 
             //todo if out of bounds document add to not categorised
+            //todo docs between categories
 
             console.log(fromHasCategory)
             console.log(toHasCategory)
+
 
             switch (true) {
                 case areCategories: self.categories.splice(toCatIndex, 0, self.categories.splice(fromCatIndex, 1)[0]); return;

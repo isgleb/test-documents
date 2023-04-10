@@ -62,7 +62,7 @@
             </li>
         </ul>
         <ul data-bind="foreach: documents" category-index="-1" class="document-list">
-            <li >
+            <li data-bind="if: show">
                 <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
                     <div class="row-content data-block">
                         <span data-bind="text: name" class="control-button document-name"></span>
