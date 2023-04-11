@@ -116,8 +116,8 @@ function ViewModel() {
         const rowWidth = e.currentTarget.parentElement.parentElement.offsetWidth
         const rightMargin = Number(window.getComputedStyle(e.currentTarget.parentElement).marginRight.replace("px",""))
 
-        positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.offsetWidth/2)
-        positionCorrection.y = - e.target.offsetHeight // todo bug
+        positionCorrection.x = - rowWidth + rightMargin + Math.floor(e.target.width * 1.5)
+        positionCorrection.y = - e.target.height * 1.5
 
         const [documentIndex, categoryIndex] = getIndexes(e.target.parentElement.parentElement)
 
