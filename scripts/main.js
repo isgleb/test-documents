@@ -154,18 +154,14 @@ function ViewModel() {
         const cloneDocIndex = clone.getAttribute(docIndexAttr)
         const cloneCatIndex = clone.getAttribute(catIndexAttr)
 
-        //todo bug if docs between different categories wrong border
         let cssClass
-
         const areCategories = cloneDocIndex < 0
 
         if (areCategories) {
-            console.log("if", cloneDocIndex)
-            cssClass = underLyingCatIndex < cloneCatIndex ? overDownClass : overUPClass // todo bug when dragging to lower positioned Cat
+            cssClass = underLyingCatIndex < cloneCatIndex ? overUPClass : overDownClass
 
         } else {
-            console.log("else", cloneDocIndex)
-            cssClass = (underLyingDocIndex < cloneDocIndex) ? overDownClass : overUPClass
+            cssClass = (underLyingDocIndex < cloneDocIndex ||  underLyingCatIndex !== cloneCatIndex) ? overUPClass : overDownClass
         }
         currentUnderLyingRow?.classList.add(cssClass)
         underLyingRow = currentUnderLyingRow

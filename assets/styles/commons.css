@@ -1,6 +1,7 @@
 :root {
     --row-border: 1px solid #DFE4EF;
     --main-font: Fira Sans;
+    --over-border: 5px solid #0066FF;
 }
 
 body {
@@ -70,9 +71,11 @@ ul{
     border-top: var(--row-border);
 }
 
-.over-down,
+.over-down {
+    border-bottom: var(--over-border);
+}
 .over-up{
-    border-top: 5px solid #0066FF;
+    border-top: var(--over-border);
 }
 
 
