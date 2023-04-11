@@ -3,9 +3,8 @@
 }
 
 .document{
-    height: 35px;
+    min-height: 35px;
 }
-
 
 .document-name{
     font-family: Fira Sans;
@@ -21,7 +20,6 @@
     font-weight: 400;
     font-size: 11px;
     line-height: 108%;
-    /* identical to box height, or 12px */
-
+    margin: auto;
     color: #FF238D;
 }
