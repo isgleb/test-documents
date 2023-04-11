@@ -107,7 +107,7 @@ function ViewModel() {
         }
     }
 
-    let clone;
+    let draggingEl;
     let underLyingRow;
     let positionCorrection = {x: null, y: null}
 
@@ -121,38 +121,38 @@ function ViewModel() {
 
         const [documentIndex, categoryIndex] = getIndexes(e.target.parentElement.parentElement)
 
-        clone = e.target.parentElement.parentElement.cloneNode(true)
+        draggingEl = e.target.parentElement.parentElement.cloneNode(true)
 
-        clone.setAttribute(catIndexAttr, categoryIndex)
-        clone.setAttribute(docIndexAttr, documentIndex)
+        draggingEl.setAttribute(catIndexAttr, categoryIndex)
+        draggingEl.setAttribute(docIndexAttr, documentIndex)
 
-        clone.classList.add(draggedClass)
-        clone.style.width = `${rowWidth}px`
-        clone.style.left= `${e.clientX + positionCorrection.x}px`;
-        clone.style.top = `${e.clientY + positionCorrection.y}px`;
+        draggingEl.classList.add(draggedClass)
+        draggingEl.style.width = `${rowWidth}px`
+        draggingEl.style.left= `${e.clientX + positionCorrection.x}px`;
+        draggingEl.style.top = `${e.clientY + positionCorrection.y}px`;
 
-        document.body.appendChild(clone);
+        document.body.appendChild(draggingEl);
 
         window.onmousemove = handleDragging;
         window.onmouseup = handleMouseUp;
     }
 
     function handleDragging(e){
-        clone.style.left= `${e.clientX + positionCorrection.x}px`;
-        clone.style.top = `${e.clientY + positionCorrection.y}px`;
+        draggingEl.style.left= `${e.clientX + positionCorrection.x}px`;
+        draggingEl.style.top = `${e.clientY + positionCorrection.y}px`;
 
         const underlyingElements = document.elementsFromPoint(e.clientX, e.clientY)
 
         const currentUnderLyingRow = underlyingElements.find(
-            el => ( el?.classList.contains(clone.classList[0]) && !el?.classList.contains(draggedClass) )
+            el => ( el?.classList.contains(draggingEl.classList[0]) && !el?.classList.contains(draggedClass) )
         )
 
         underLyingRow?.classList.remove(overDownClass, overUPClass)
 
         const [underLyingDocIndex, underLyingCatIndex] = getIndexes(currentUnderLyingRow)
 
-        const cloneDocIndex = clone.getAttribute(docIndexAttr)
-        const cloneCatIndex = clone.getAttribute(catIndexAttr)
+        const cloneDocIndex = draggingEl.getAttribute(docIndexAttr)
+        const cloneCatIndex = draggingEl.getAttribute(catIndexAttr)
 
         let cssClass
         const areCategories = cloneDocIndex < 0
@@ -172,9 +172,9 @@ function ViewModel() {
         window.onmousemove = null
         window.onmouseup = null
         underLyingRow?.classList.remove(overDownClass, overUPClass)
-        clone.remove()
+        draggingEl.remove()
 
-        const [fromDocIndex, fromCatIndex] = getIndexes(clone)
+        const [fromDocIndex, fromCatIndex] = getIndexes(draggingEl)
         let toDocIndex, toCatIndex
 
         if (underLyingRow) {
