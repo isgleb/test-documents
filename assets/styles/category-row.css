@@ -9,6 +9,10 @@
     font-size: 15px;
 }
 
+.category + div ul li div{
+    border-top: none;
+}
+
 .tick-element{
     border: var(--row-border);
     border-radius: 50%;

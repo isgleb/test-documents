@@ -30,7 +30,7 @@
         </div>
         <ul class="category-list" data-bind="foreach: categories">
             <li data-bind="if: show">
-                <div class="category row" data-bind="attr: { 'category-index': $index}, css: { 'first-row': $index() === 0 }">
+                <div class="category row" data-bind="attr: { 'category-index': $index}">
                     <div class="row-content data-block">
                         <img src="assets/icons/tickArrow.svg"  class="tick-element pointer" data-bind="click: $parent.openList, css: {'rotated': isOpen}"/>
                         <span data-bind="text: name" class="category-name"></span>
@@ -45,7 +45,7 @@
                 <div data-bind="if: isOpen">
                     <ul class="document-list document-ul" data-bind="foreach: documents, attr: { 'category-index': $index() }">
                         <li data-bind="if: show">
-                            <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
+                            <div class="document row" data-bind="attr: { 'document-index': $index }">
                                 <span class="row-content data-block">
                                     <span data-bind="text: name" class="document-name"></span>
                                     <span data-bind="text: required ? 'Обязательный' : ''" class="document-required"></span>
@@ -64,7 +64,7 @@
         </ul>
         <ul data-bind="foreach: documents" category-index="-1" class="document-list">
             <li data-bind="if: show">
-                <div class="document row" data-bind="attr: { 'document-index': $index }, css: { 'first-row': $index() === 0 }">
+                <div class="document row" data-bind="attr: { 'document-index': $index }">
                     <div class="row-content data-block">
                         <span data-bind="text: name" class="document-name"></span>
                         <span data-bind="text: required ? 'Обязательный' : ''" class="document-required"></span>

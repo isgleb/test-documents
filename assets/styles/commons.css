@@ -59,10 +59,6 @@ ul{
     margin: auto;
 }
 
-.first-row {
-    border-top: var(--row-border);
-}
-
 .over-down {
     border-bottom: var(--over-border);
 }

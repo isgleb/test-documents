@@ -6,6 +6,10 @@
     min-height: 35px;
 }
 
+.document-list li + li .document{
+    border-top: none;
+}
+
 .document-name{
     font-family: Fira Sans;
     font-style: normal;
